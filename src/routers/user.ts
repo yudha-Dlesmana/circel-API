@@ -1,15 +1,13 @@
 import { Router } from "express";
-import { forgotPassword, loginUser, registerUser, resetPassword } from "../controllers/auth";
-import { authentication, authorization } from "../middlewares/auth";
-import { upload } from "../utils/multer";
-import { limiter } from "../middlewares/rateLimit";
-import { stripTypeScriptTypes } from "module";
+import { authentication } from "../middlewares/auth";
+import { getUserController } from "../controllers/user";
 
 const router = Router()
 
-router.post("/register", registerUser)
-router.post("/login", loginUser);
-router.post('/forgot-password', forgotPassword)
-router.patch('/reset-password', resetPassword)
+router.get('/test', authentication, (req, res) => {
+  res.send({message:"", user:(req as any).user})
+})
+router.get("/user", authentication, getUserController)
+
 
 export default router
