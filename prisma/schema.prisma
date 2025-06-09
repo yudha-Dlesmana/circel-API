@@ -14,30 +14,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model User{
-  id          String @id @default(uuid())
-  fullname    String
-  username    String  @unique
-  email       String  @unique
-  password    String
-
-  role        Roles   @default(USER)
-  tweets      Tweet[]
+model User {
+  id       String   @id @default(uuid())
+  username String   @unique
+  email    String   @unique
+  password String
+  profile  Profile?
+  role     Roles    @default(USER)
+  tweets   Tweet[]
 }
 
-model Tweet{
-  id            Int @id @default(autoincrement())
-  text          String?
-  img           String?
-  userId        String
-  createAt      DateTime @default(now())
-
-  user          User @relation(fields: [userId], references: [id], onDelete: Cascade) 
+model Profile {
+  username String  @id
+  name     String
+  bio      String
+  image    String?
+  user     User    @relation(fields: [username], references: [username], onDelete: Cascade)
 }
 
+model Tweet {
+  id       Int      @id @default(autoincrement())
+  username String
+  text     String?
+  img      String?
+  createAt DateTime @default(now())
 
-enum Roles{
+  user User @relation(fields: [username], references: [username], onDelete: Cascade)
+}
+
+enum Roles {
   USER
   ADMIN
 }
