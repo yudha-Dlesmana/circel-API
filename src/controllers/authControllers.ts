@@ -6,10 +6,10 @@ import {
 } from "../validation/authValidation";
 import { sendResetPasswordLink } from "../utils/mailer";
 import { signToken, verifyToken } from "../utils/jwt";
-import { createUser } from "../services/auth/createUser";
-import { validateCredential } from "../services/auth/validateCredential";
-import { validateEmail } from "../services/auth/validateEmail";
-import { changePassword } from "../services/auth/changePassword";
+import { createUser } from "../services/auth/RegisterUser";
+import { validateCredential } from "../services/auth/ValidateCredential";
+import { validateEmail } from "../services/auth/ValidateEmail";
+import { changePassword } from "../services/auth/ChangePassword";
 
 export async function register(
   req: Request,
@@ -48,6 +48,7 @@ export async function forgotPassword(
 ) {
   try {
     const { email } = req.body;
+
     await fotgotSchema.validateAsync(req.body);
 
     const payload = await validateEmail(req.body);

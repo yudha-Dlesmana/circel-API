@@ -5,9 +5,6 @@ import {
   register,
   resetPassword,
 } from "../controllers/authControllers";
-import { authentication, authorization } from "../middlewares/auth";
-import { limiter } from "../middlewares/rateLimit";
-import { stripTypeScriptTypes } from "module";
 
 const router = Router();
 

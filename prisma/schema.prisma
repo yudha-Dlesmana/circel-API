@@ -25,11 +25,11 @@ model User {
 }
 
 model Profile {
-  username String  @id
-  name     String
-  bio      String
-  image    String?
-  user     User    @relation(fields: [username], references: [username], onDelete: Cascade)
+  userId String  @id
+  name   String
+  bio    String?
+  image  String?
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Tweet {
