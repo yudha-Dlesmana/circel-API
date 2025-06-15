@@ -1,10 +1,16 @@
-import { prismaClient } from "../../prisma/client";
+import { prismaClient } from "../../database/prisma";
 
 export async function findUserProfile(userId: string) {
-  const userProfile = await prismaClient.user.findUniqueOrThrow({
+  const userProfile = await prismaClient.user.findUnique({
     where: { id: userId },
     include: {
-      profile: true,
+      profile: {
+        select: {
+          name: true,
+          bio: true,
+          image: true,
+        },
+      },
     },
   });
   return userProfile;

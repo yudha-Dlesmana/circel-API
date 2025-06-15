@@ -1,5 +1,7 @@
 import { hash } from "bcrypt";
-import { prismaClient } from "../../prisma/client";
+import { prismaClient } from "../../database/prisma";
+import { Payload } from "../user/registerUserProfile";
+import { UserPayload } from "../../utils/jwt";
 
 interface Register {
   email: string;
@@ -16,6 +18,8 @@ export async function createUser(register: Register) {
       password: await hash(register.password, 10),
     },
   });
+
+  const payload: UserPayload = { id: registerUser.id, role: registerUser.role };
 
   return { username: registerUser.username, email: registerUser.email };
 }

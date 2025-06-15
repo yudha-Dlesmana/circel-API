@@ -1,4 +1,4 @@
-import { prismaClient } from "../../prisma/client";
+import { prismaClient } from "../../database/prisma";
 import { UserPayload } from "../../utils/jwt";
 
 interface Forgot {

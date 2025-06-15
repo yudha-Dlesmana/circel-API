@@ -1,5 +1,5 @@
 import { hash } from "bcrypt";
-import { prismaClient } from "../../prisma/client";
+import { prismaClient } from "../../database/prisma";
 
 interface ResetPassword {
   password: string;
