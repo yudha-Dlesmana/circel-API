@@ -3,6 +3,7 @@ import { registerUserProfile } from "../services/user/registerUserProfile";
 import { findUserProfile } from "../services/user/findUserProfile";
 import { profileSchema } from "../validation/profileValidation";
 import { updateUserProfile } from "../services/user/updateuserProfile";
+import { supabase } from "../utils/supabaseClient";
 
 export async function getUserProfile(
   req: Request,
@@ -11,11 +12,17 @@ export async function getUserProfile(
 ) {
   const userId = (req as any).user.id;
   try {
-    console.log(userId);
-
     const userProfile = await findUserProfile(userId);
 
-    res.status(200).json(userProfile);
+    const profile = userProfile.profile;
+
+    const payload = {
+      username: userProfile.username,
+      email: userProfile.email,
+      ...profile,
+    };
+
+    res.status(200).json(payload);
   } catch (error) {
     next(error);
   }
@@ -29,13 +36,17 @@ export async function postProfile(
   const userId = (req as any).user.id;
   const input = req.body;
   const publicUrl = (req as any).publicUrl;
+  const filePath = (req as any).filePath;
   const payload = { ...input, image: publicUrl };
   try {
     await profileSchema.validateAsync(payload);
 
     await registerUserProfile(userId, payload);
+
     res.status(200).json({ message: `user profile registered ` });
   } catch (error) {
+    await supabase.storage.from("profileimg").remove([filePath]);
+
     next(error);
   }
 }

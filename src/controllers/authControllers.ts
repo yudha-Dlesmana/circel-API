@@ -19,9 +19,11 @@ export async function register(
   try {
     await authSchema.validateAsync(req.body);
 
-    const user = await createUser(req.body);
+    const payload = await createUser(req.body);
 
-    res.status(200).json({ message: "User Registered", user });
+    const token = signToken(payload);
+
+    res.status(200).json({ message: "User Registered", token });
   } catch (error) {
     next(error);
   }

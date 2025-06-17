@@ -16,10 +16,10 @@ export function errorHandler(
   if (err instanceof PrismaClientKnownRequestError) {
     switch (err.code) {
       case "P2002":
-        res.status(400).json({ Error: "UniqueConstraintViolation" });
+        res.status(400).json({ message: "UniqueConstraintViolation" });
         break;
       case "P2025":
-        res.status(400).json({ Error: "InvalidCredentialsError" });
+        res.status(400).json({ message: "Invalid Credentials" });
         break;
       default:
         res.status(400).json({ code: err.code, meta: err.meta });
@@ -28,7 +28,7 @@ export function errorHandler(
   }
 
   if (err instanceof Error) {
-    res.status(400).json({ Error: err.message });
+    res.status(400).json({ message: err.message });
     return;
   }
   res.status(500).json({ message: "UnknownError" });

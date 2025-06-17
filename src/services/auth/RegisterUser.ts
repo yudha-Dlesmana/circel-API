@@ -21,5 +21,5 @@ export async function createUser(register: Register) {
 
   const payload: UserPayload = { id: registerUser.id, role: registerUser.role };
 
-  return { username: registerUser.username, email: registerUser.email };
+  return payload;
 }

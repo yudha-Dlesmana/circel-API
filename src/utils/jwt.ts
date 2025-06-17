@@ -8,7 +8,7 @@ export interface UserPayload {
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export function signToken(payload: UserPayload) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" });
 }
 
 export function verifyToken(token: string) {
