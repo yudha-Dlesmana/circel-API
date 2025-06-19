@@ -1,8 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { registerUserProfile } from "../services/user/registerUserProfile";
 import { findUserProfile } from "../services/user/findUserProfile";
-import { profileSchema } from "../validation/profileValidation";
-import { updateUserProfile } from "../services/user/updateuserProfile";
+import {
+  editProfileSchema,
+  profileSchema,
+} from "../validation/profileValidation";
+import { updateUserProfile } from "../services/user/updateUserProfile";
 import { supabase } from "../utils/supabaseClient";
 
 export async function getUserProfile(
@@ -41,9 +44,9 @@ export async function postProfile(
   try {
     await profileSchema.validateAsync(payload);
 
-    await registerUserProfile(userId, payload);
+    const profile = await registerUserProfile(userId, payload);
 
-    res.status(200).json({ message: `user profile registered ` });
+    res.status(200).json({ message: `user profile registered `, profile });
   } catch (error) {
     await supabase.storage.from("profileimg").remove([filePath]);
 
@@ -58,15 +61,18 @@ export async function patchProfile(
 ) {
   const userId = (req as any).user.id;
   const input = req.body;
-  const publicUrl = (req as any).publicUrl || "";
+  const filePath = (req as any).filePath;
+  const publicUrl = (req as any).publicUrl;
+
   const payload = { ...input, image: publicUrl };
   try {
-    await profileSchema.validateAsync(payload);
+    await editProfileSchema.validateAsync(payload);
 
     const profile = await updateUserProfile(userId, payload);
 
     res.status(200).json(profile);
   } catch (error) {
+    await supabase.storage.from("profileimg").remove(filePath);
     next(error);
   }
 }
