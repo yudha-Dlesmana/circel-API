@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import authRouter from "./routers/auth";
+import profileRouter from "./routers/profile";
 import userRouter from "./routers/user";
 import corsMiddleware from "./configs/cors";
 import { errorHandler } from "./middlewares/errorHandler";
@@ -16,6 +17,7 @@ app.use(corsMiddleware);
 app.use(limiter);
 
 app.use("/api/v1", authRouter);
+app.use("/api/v1", profileRouter);
 app.use("/api/v1", userRouter);
 
 app.use(errorHandler);
