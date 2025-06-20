@@ -19,5 +19,8 @@ export async function findUserSuggestions(userId: string) {
         },
       },
     },
+    take: 3,
   });
+
+  return users;
 }
