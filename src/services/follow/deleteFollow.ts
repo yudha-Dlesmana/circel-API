@@ -1,11 +1,11 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function deleteFollow(userId: string, targetId: string) {
+export async function deleteFollow(username: string, targetUsername: string) {
   await prismaClient.follows.delete({
     where: {
-      followerId_followingId: {
-        followerId: userId,
-        followingId: targetId,
+      followerUsername_followingUsername: {
+        followerUsername: username,
+        followingUsername: targetUsername,
       },
     },
   });

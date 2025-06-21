@@ -8,8 +8,7 @@ import {
 
 const router = Router();
 
-router.post("/follow", authentication, follow);
-router.post("/unfollow", authentication, unfollow);
-router.get("/checkfollows", authentication, checkFollow);
+router.post("/follow/:targetUsername", authentication, follow);
+router.delete("/unfollow/:targetUsername", authentication, unfollow);
 
 export default router;

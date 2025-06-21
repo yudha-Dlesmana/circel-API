@@ -1,12 +1,22 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function findFollowed(userId: string) {
+export async function findFollowing(username: string) {
   const followed = await prismaClient.user.findMany({
     where: {
-      follower: {
-        some: { followerId: userId },
+      following: {
+        some: { followerUsername: username },
       },
     },
+    select: {
+      username: true,
+      profile: {
+        select: {
+          name: true,
+          image: true,
+        },
+      },
+    },
+    take: 15,
   });
 
   return followed;

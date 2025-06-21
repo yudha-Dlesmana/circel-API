@@ -11,6 +11,12 @@ export async function findUserProfile(userId: string) {
           image: true,
         },
       },
+      _count: {
+        select: {
+          follower: true,
+          following: true,
+        },
+      },
     },
   });
   return userProfile;

@@ -1,10 +1,10 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function findFollowers(userId: string) {
+export async function findFollowers(username: string, cursor?: string) {
   const follower = await prismaClient.user.findMany({
     where: {
-      following: {
-        some: { followingId: userId },
+      follower: {
+        some: { followingUsername: username },
       },
     },
     select: {
@@ -16,6 +16,7 @@ export async function findFollowers(userId: string) {
         },
       },
     },
+    take: 15,
   });
 
   return follower;

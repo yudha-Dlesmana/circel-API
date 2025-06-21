@@ -15,33 +15,38 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  username  String    @unique
-  email     String    @unique
-  password  String
-  profile   Profile?
-  role      Roles     @default(USER)
+  id       String   @id @default(uuid())
+  username String   @unique
+  email    String   @unique
+  password String
+  profile  Profile?
+  role     Roles    @default(USER)
+  createAt DateTime @default(now())
+
   tweets    Tweet[]
   following Follows[] @relation("Following")
   follower  Follows[] @relation("Follower")
 }
 
 model Profile {
-  userId String  @id
-  name   String
-  bio    String?
-  image  String?
-  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String    @id
+  name     String
+  bio      String?
+  image    String?
+  createAt DateTime  @default(now())
+  updateAt DateTime?
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Follows {
-  id          Int    @id @default(autoincrement())
-  followingId String
-  followerId  String
-  following   User   @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
-  follower    User   @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  id                Int      @id @default(autoincrement())
+  followingUsername String
+  followerUsername  String
+  createAt          DateTime @default(now())
+  following         User     @relation("Following", fields: [followingUsername], references: [username], onDelete: Cascade)
+  follower          User     @relation("Follower", fields: [followerUsername], references: [username], onDelete: Cascade)
 
-  @@unique([followerId, followingId])
+  @@unique([followerUsername, followingUsername])
 }
 
 model Tweet {

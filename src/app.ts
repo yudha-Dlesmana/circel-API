@@ -5,9 +5,12 @@ dotenv.config();
 import authRouter from "./routers/auth";
 import profileRouter from "./routers/profile";
 import userRouter from "./routers/user";
+import followRouter from "./routers/follow";
+
 import corsMiddleware from "./configs/cors";
-import { errorHandler } from "./middlewares/errorHandler";
 import { limiter } from "./configs/rateLimit";
+
+import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -19,6 +22,7 @@ app.use(limiter);
 app.use("/api/v1", authRouter);
 app.use("/api/v1", profileRouter);
 app.use("/api/v1", userRouter);
+app.use("/api/v1", followRouter);
 
 app.use(errorHandler);
 

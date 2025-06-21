@@ -1,12 +1,12 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function findUserSuggestions(userId: string) {
+export async function findUserSuggestions(userUsername: string) {
   const users = await prismaClient.user.findMany({
     where: {
-      id: { not: userId },
+      username: { not: userUsername },
       follower: {
         none: {
-          followerId: userId,
+          followingUsername: userUsername,
         },
       },
     },
@@ -14,8 +14,14 @@ export async function findUserSuggestions(userId: string) {
       username: true,
       profile: {
         select: {
-          image: true,
           name: true,
+          image: true,
+        },
+      },
+      follower: {
+        select: {
+          followingUsername: true,
+          followerUsername: true,
         },
       },
     },
