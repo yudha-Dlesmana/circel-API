@@ -3,6 +3,7 @@ import { authentication } from "../middlewares/auth";
 import {
   getFollower,
   getFollowing,
+  getSearchUser,
   getSuggestionUser,
   getUserProfile,
 } from "../controllers/userControllers";
@@ -10,6 +11,8 @@ import {
 const router = Router();
 
 router.get("/user", authentication, getUserProfile);
+
+router.get("/search-user", authentication, getSearchUser);
 
 router.get("/suggestion", authentication, getSuggestionUser);
 

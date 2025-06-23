@@ -3,7 +3,7 @@ import { findUserProfile } from "../services/user/findUserProfile";
 import { findUserSuggestions } from "../services/user/findUserSuggestions";
 import { findFollowers } from "../services/follow/findFollower";
 import { findFollowing } from "../services/follow/findFollowed";
-import { findUsers } from "../services/user/findUsers";
+import { searchUsers } from "../services/user/searchUser";
 import { getUsername } from "../services/user/getUsername";
 
 export async function getUserProfile(
@@ -31,14 +31,22 @@ export async function getUserProfile(
   }
 }
 
-export async function getAllUser(
+export async function getSearchUser(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
+  const query = req.query.name as string;
   try {
-    const user = await findUsers();
-    res.status(200).json(user);
+    const user = await searchUsers(query);
+    const payload = user.map((user) => ({
+      username: user.username,
+      name: user.profile?.name,
+      image: user.profile?.image,
+      bio: user.profile?.bio,
+    }));
+
+    res.status(200).json(payload);
   } catch (error) {
     next(error);
   }
@@ -80,6 +88,7 @@ export async function getFollower(
       username: item.username,
       name: item.profile?.name,
       image: item.profile?.image,
+      bio: item.profile?.bio,
     }));
 
     res.status(200).json(payload);
@@ -101,6 +110,7 @@ export async function getFollowing(
       username: item.username,
       name: item.profile?.name,
       image: item.profile?.image,
+      bio: item.profile?.bio,
     }));
 
     res.status(200).json(payload);

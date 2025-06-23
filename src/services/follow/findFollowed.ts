@@ -13,6 +13,7 @@ export async function findFollowing(username: string) {
         select: {
           name: true,
           image: true,
+          bio: true,
         },
       },
     },

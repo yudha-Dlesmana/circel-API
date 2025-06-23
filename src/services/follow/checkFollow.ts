@@ -1,10 +1,10 @@
 import { prismaClient } from "../../database/prisma";
 
 export async function findFollows(username: string, targetUsername: string) {
-  const follow = await prismaClient.follows.findFirstOrThrow({
+  const follow = await prismaClient.follows.findFirst({
     where: {
-      followerUsername: username,
-      followingUsername: targetUsername,
+      followerUsername: targetUsername,
+      followingUsername: username,
     },
   });
   return !!follow;

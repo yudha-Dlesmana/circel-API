@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 export const limiter = rateLimit({
   windowMs: 30 * 1000,
-  max: 10,
+  max: 50,
   handler: (req: Request, res: Response) => {
     res.status(429).json({
       status: 429,

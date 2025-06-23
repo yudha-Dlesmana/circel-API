@@ -52,8 +52,8 @@ model Follows {
 model Tweet {
   id       Int      @id @default(autoincrement())
   username String
-  text     String?
-  img      String?
+  text     String
+  image    String?
   createAt DateTime @default(now())
 
   user User @relation(fields: [username], references: [username], onDelete: Cascade)

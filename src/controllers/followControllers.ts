@@ -42,7 +42,7 @@ export async function checkFollow(
   next: NextFunction
 ) {
   const userId = (req as any).user.id;
-  const { targetUsername } = req.body;
+  const { targetUsername } = req.params;
   try {
     const { username } = await getUsername(userId);
 
