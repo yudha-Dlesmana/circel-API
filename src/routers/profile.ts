@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { patchProfile, postProfile } from "../controllers/profileControllers";
 import { authentication } from "../middlewares/auth";
-import { supabaseUpload } from "../middlewares/supabaseUploads";
+import { supabaseUpload } from "../middlewares/UploadsProfileImage";
 
 const router = Router();
 
