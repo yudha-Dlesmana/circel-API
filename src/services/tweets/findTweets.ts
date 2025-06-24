@@ -13,6 +13,28 @@ export async function findAllTweets(
         { username: { in: followerUsername } },
       ],
     },
+    select: {
+      user: {
+        select: {
+          profile: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
+      createAt: true,
+      text: true,
+      image: true,
+      username: true,
+      _count: {
+        select: {
+          comment: true,
+          liked: true,
+        },
+      },
+    },
 
     orderBy: { createAt: "desc" },
   });

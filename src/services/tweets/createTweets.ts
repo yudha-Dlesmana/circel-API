@@ -6,7 +6,7 @@ interface payload {
 }
 
 export async function createTweets(payload: payload) {
-  const tweets = await prismaClient.tweet.create({
+  const post = await prismaClient.tweet.create({
     data: {
       username: payload.username,
       text: payload.text,
@@ -14,5 +14,5 @@ export async function createTweets(payload: payload) {
     },
   });
 
-  return tweets;
+  return post;
 }

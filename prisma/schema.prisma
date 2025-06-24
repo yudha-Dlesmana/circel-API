@@ -24,8 +24,10 @@ model User {
   createAt DateTime @default(now())
 
   tweets    Tweet[]
+  comment   Comment[]
   following Follows[] @relation("Following")
   follower  Follows[] @relation("Follower")
+  Like      Like[]
 }
 
 model Profile {
@@ -50,13 +52,41 @@ model Follows {
 }
 
 model Tweet {
-  id       Int      @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   username String
   text     String
   image    String?
-  createAt DateTime @default(now())
+  createAt DateTime  @default(now())
+  comment  Comment[]
+  liked    Like[]
 
   user User @relation(fields: [username], references: [username], onDelete: Cascade)
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  tweetId   Int
+  username  String
+  text      String
+  image     String?
+  repliesId Int?
+  createAt  DateTime @default(now())
+
+  tweet Tweet @relation(fields: [tweetId], references: [id])
+  user  User  @relation(fields: [username], references: [username])
+
+  commentReplies Comment?  @relation("CommentReplies", fields: [repliesId], references: [id], onDelete: Cascade)
+  replies        Comment[] @relation("CommentReplies")
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+
+  tweetId  Int
+  username String
+
+  user  User   @relation(fields: [username], references: [username], onDelete: Cascade)
+  tweet Tweet? @relation(fields: [tweetId], references: [id], onDelete: Cascade)
 }
 
 enum Roles {

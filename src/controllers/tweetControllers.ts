@@ -3,7 +3,7 @@ import { supabase } from "../utils/supabaseClient";
 import { Request, Response, NextFunction } from "express";
 import { tweetsSchema } from "../validation/tweetsValidation";
 
-import { getUsername } from "../services/user/getUsername";
+import { getUsername } from "../services/user/getUserProperties";
 import { createTweets } from "../services/tweets/createTweets";
 import { deleteTweet } from "../services/tweets/deleteTweets";
 import {
@@ -22,7 +22,6 @@ export async function postTweets(
   next: NextFunction
 ) {
   const { text } = req.body;
-
   const ImagePublicUrl = (req as any).ImagePublicUrl;
   const filePath = (req as any).filePath;
 
@@ -36,8 +35,6 @@ export async function postTweets(
   };
 
   try {
-    await tweetsSchema.validateAsync(payload);
-
     const tweet = await createTweets(payload);
     res.status(200).json(tweet);
   } catch (error) {
@@ -147,7 +144,18 @@ export async function getAlltweets(
       followerUsername,
       followingUsername
     );
-    res.status(200).json(tweets);
+
+    const payload = tweets.map((tweet) => ({
+      text: tweet.text,
+      image: tweet.image,
+      createAt: tweet.createAt,
+      username: tweet.username,
+      name: tweet.user.profile?.name,
+      userImage: tweet.user.profile?.image,
+      likes: tweet._count.liked,
+      comments: tweet._count.comment,
+    }));
+    res.status(200).json(payload);
   } catch (error) {
     next(error);
   }

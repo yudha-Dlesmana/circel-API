@@ -4,7 +4,7 @@ import { findUserSuggestions } from "../services/user/findUserSuggestions";
 import { findFollowers } from "../services/follow/findFollower";
 import { findFollowing } from "../services/follow/findFollowed";
 import { searchUsers } from "../services/user/searchUser";
-import { getUsername } from "../services/user/getUsername";
+import { getUsername } from "../services/user/getUserProperties";
 
 export async function getUserProfile(
   req: Request,
