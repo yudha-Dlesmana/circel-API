@@ -7,6 +7,7 @@ import profileRouter from "./routers/profile";
 import userRouter from "./routers/user";
 import followRouter from "./routers/follow";
 import tweetRouter from "./routers/tweets";
+import likeRouter from "./routers/likes";
 
 import corsMiddleware from "./configs/cors";
 import { limiter } from "./configs/rateLimit";
@@ -25,6 +26,7 @@ app.use("/api/v1", profileRouter);
 app.use("/api/v1", userRouter);
 app.use("/api/v1", followRouter);
 app.use("/api/v1", tweetRouter);
+app.use("/api/v1", likeRouter);
 
 app.use(errorHandler);
 
