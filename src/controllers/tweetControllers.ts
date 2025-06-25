@@ -146,6 +146,7 @@ export async function getAlltweets(
     );
 
     const payload = tweets.map((tweet) => ({
+      id: tweet.id,
       text: tweet.text,
       image: tweet.image,
       createAt: tweet.createAt,

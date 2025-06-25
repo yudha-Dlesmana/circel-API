@@ -14,6 +14,7 @@ export async function findAllTweets(
       ],
     },
     select: {
+      id: true,
       user: {
         select: {
           profile: {
