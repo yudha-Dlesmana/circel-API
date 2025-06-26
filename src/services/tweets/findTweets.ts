@@ -45,6 +45,29 @@ export async function findAllTweets(
 export async function findTweet(id: number) {
   const tweet = await prismaClient.tweet.findUniqueOrThrow({
     where: { id },
+    select: {
+      image: true,
+      text: true,
+      createAt: true,
+      _count: {
+        select: {
+          comment: true,
+          liked: true,
+        },
+      },
+      username: true,
+      user: {
+        select: {
+          profile: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
+      comment: true,
+    },
   });
   return tweet;
 }
