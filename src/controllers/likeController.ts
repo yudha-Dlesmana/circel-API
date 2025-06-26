@@ -1,41 +1,115 @@
 import { Request, Response, NextFunction } from "express";
 import { getUsername } from "../services/user/getUserProperties";
-import { createLike } from "../services/likes/createLike";
-import { deleteLike } from "../services/likes/deleteLike";
-import { checkLiked, countLikes } from "../services/likes/checkLiked";
+import {
+  createCommentLike,
+  createTweetLike,
+} from "../services/likes/createLike";
+import {
+  deleteCommentLike,
+  deleteTweetLike,
+} from "../services/likes/deleteLike";
+import {
+  isLikedTweet,
+  countTweetLikes,
+  isLikedComment,
+  countCommentLikes,
+} from "../services/likes/checkLiked";
 
-export async function like(req: Request, res: Response, next: NextFunction) {
-  const { tweetId } = req.query;
+export async function likeTweet(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { tweetId } = req.params;
   const userId = (req as any).user.id;
   const username = (await getUsername(userId)).username;
 
   try {
-    const like = await createLike(Number(tweetId), username);
+    const like = await createTweetLike(username, Number(tweetId));
+    res.status(200).json(like);
+  } catch (error) {
+    next(error);
+  }
+}
+export async function likeComment(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { tweetId, commentId } = req.params;
+  const userId = (req as any).user.id;
+  const username = (await getUsername(userId)).username;
+
+  try {
+    const like = await createCommentLike(
+      username,
+      Number(tweetId),
+      Number(commentId)
+    );
     res.status(200).json(like);
   } catch (error) {
     next(error);
   }
 }
 
-export async function unlike(req: Request, res: Response, next: NextFunction) {
-  const { tweetId } = req.query;
+export async function removeTweetLike(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { tweetId } = req.params;
   const userId = (req as any).user.id;
   const username = (await getUsername(userId)).username;
   try {
-    await deleteLike(Number(tweetId), username);
-    res.status(200).json("unlike");
+    await deleteTweetLike(username, Number(tweetId));
+    res.status(200).json("remove like");
+  } catch (error) {
+    next(error);
+  }
+}
+export async function removeCommentLike(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { commentId } = req.params;
+  const userId = (req as any).user.id;
+  const username = (await getUsername(userId)).username;
+  try {
+    await deleteCommentLike(username, Number(commentId));
+    res.status(200).json("remove like");
   } catch (error) {
     next(error);
   }
 }
 
-export async function isLiked(req: Request, res: Response, next: NextFunction) {
-  const { tweetId } = req.query;
+export async function checkTweetLiked(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { tweetId } = req.params;
   const userId = (req as any).user.id;
   const username = (await getUsername(userId)).username;
   try {
-    const isLiked = await checkLiked(Number(tweetId), username);
-    const countlikes = await countLikes(Number(tweetId));
+    const isLiked = await isLikedTweet(username, Number(tweetId));
+    const countlikes = await countTweetLikes(Number(tweetId));
+    res.status(200).json({ isLiked, countlikes });
+  } catch (error) {
+    next(error);
+  }
+}
+export async function checkCommentLiked(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { commentId } = req.params;
+  const userId = (req as any).user.id;
+  const username = (await getUsername(userId)).username;
+  try {
+    const isLiked = await isLikedComment(username, Number(commentId));
+    const countlikes = await countCommentLikes(Number(commentId));
     res.status(200).json({ isLiked, countlikes });
   } catch (error) {
     next(error);

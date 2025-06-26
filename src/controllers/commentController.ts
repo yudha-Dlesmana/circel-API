@@ -75,7 +75,7 @@ export async function getComment(
       text: comment.text,
       image: comment.image,
       createAt: comment.createAt,
-      likes: comment._count.likes,
+      likes: comment._count.like,
       replies: comment._count.replies,
     }));
     res.status(200).json(payload);
@@ -98,7 +98,7 @@ export async function getRepliesComment(
       userImage: reply.user.profile?.image,
       text: reply.text,
       createAt: reply.createAt,
-      likes: reply._count.likes,
+      likes: reply._count.like,
     }));
     res.status(200).json(payload);
   } catch (error) {

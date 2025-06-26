@@ -1,11 +1,32 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function createLike(tweetId: number, username: string) {
-  const likes = await prismaClient.like.create({
+export async function createTweetLike(username: string, tweetId: number) {
+  const like = await prismaClient.like.create({
     data: {
-      tweetId,
       username,
+      tweetId,
     },
   });
-  return likes;
+  return like;
+}
+export async function createCommentLike(
+  username: string,
+  tweetId: number,
+  commentId: number
+) {
+  const istrue = await prismaClient.comment.findFirst({
+    where: {
+      id: commentId,
+      tweetId,
+    },
+  });
+  if (!istrue) throw new Error("invalid comment");
+
+  const like = await prismaClient.like.create({
+    data: {
+      username,
+      commentId,
+    },
+  });
+  return like;
 }

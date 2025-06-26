@@ -32,7 +32,7 @@ export async function findAllTweets(
       _count: {
         select: {
           comment: true,
-          liked: true,
+          like: true,
         },
       },
     },
@@ -53,7 +53,7 @@ export async function findTweet(id: number) {
       _count: {
         select: {
           comment: true,
-          liked: true,
+          like: true,
         },
       },
       username: true,

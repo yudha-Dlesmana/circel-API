@@ -23,7 +23,7 @@ export async function findComments(tweetId: number) {
       },
       _count: {
         select: {
-          likes: true,
+          like: true,
           replies: true,
         },
       },
@@ -57,7 +57,7 @@ export async function findReplies(parentId: number) {
       },
       _count: {
         select: {
-          likes: true,
+          like: true,
         },
       },
       createAt: true,

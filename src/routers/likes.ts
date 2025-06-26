@@ -1,11 +1,26 @@
 import Router from "express";
 import { authentication } from "../middlewares/auth";
-import { isLiked, like, unlike } from "../controllers/likeController";
+import {
+  checkCommentLiked,
+  checkTweetLiked,
+  likeComment,
+  likeTweet,
+  removeCommentLike,
+  removeTweetLike,
+} from "../controllers/likeController";
 
 const router = Router();
 
-router.post("/like", authentication, like);
-router.delete("/unlike", authentication, unlike);
-router.get("/isliked", authentication, isLiked);
+router.post("/like-tweet/:tweetId", authentication, likeTweet);
+router.delete("/remove-like-tweet/:tweetId", authentication, removeTweetLike);
+router.get("/isliked-tweet/:tweetId", authentication, checkTweetLiked);
+
+router.post("/like-comment/:tweetId/:commentId", authentication, likeComment);
+router.delete(
+  "/remove-like-comment/:commentId",
+  authentication,
+  removeCommentLike
+);
+router.get("/isliked-comment/:commentId", authentication, checkCommentLiked);
 
 export default router;

@@ -1,8 +1,5 @@
-import { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "../utils/supabaseClient";
 import { Request, Response, NextFunction } from "express";
-import { tweetsSchema } from "../validation/tweetsValidation";
-
 import { getUsername } from "../services/user/getUserProperties";
 import { createTweets } from "../services/tweets/createTweets";
 import { deleteTweet } from "../services/tweets/deleteTweets";
@@ -14,7 +11,6 @@ import {
 import { editTweet } from "../services/tweets/editTweets";
 import { findFollowers } from "../services/follow/findFollower";
 import { findFollowing } from "../services/follow/findFollowed";
-import test from "node:test";
 
 export async function postTweets(
   req: Request,
@@ -128,7 +124,7 @@ export async function getTweet(
       username: tweet.username,
       name: tweet.user.profile?.name,
       userImage: tweet.user.profile?.image,
-      likes: tweet._count.liked,
+      likes: tweet._count.like,
       comments: tweet._count.comment,
     };
     res.status(200).json(payload);
@@ -164,7 +160,7 @@ export async function getAlltweets(
       username: tweet.username,
       name: tweet.user.profile?.name,
       userImage: tweet.user.profile?.image,
-      likes: tweet._count.liked,
+      likes: tweet._count.like,
       comments: tweet._count.comment,
     }));
     res.status(200).json(payload);
