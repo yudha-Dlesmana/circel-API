@@ -120,7 +120,18 @@ export async function getTweet(
   const { id } = req.params;
   try {
     const tweet = await findTweet(Number(id));
-    res.status(200).json(tweet);
+    const payload = {
+      id: tweet.id,
+      text: tweet.text,
+      image: tweet.image,
+      createAt: tweet.createAt,
+      username: tweet.username,
+      name: tweet.user.profile?.name,
+      userImage: tweet.user.profile?.image,
+      likes: tweet._count.liked,
+      comments: tweet._count.comment,
+    };
+    res.status(200).json(payload);
   } catch (error) {
     next(error);
   }

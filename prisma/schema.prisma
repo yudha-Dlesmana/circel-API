@@ -64,31 +64,35 @@ model Tweet {
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  tweetId   Int
-  username  String
-  text      String
-  image     String?
-  repliesId Int?
-  createAt  DateTime @default(now())
+  id       Int      @id @default(autoincrement())
+  tweetId  Int
+  username String
+  text     String
+  image    String?
+  likes    Like[]
+  parentId Int?
+  createAt DateTime @default(now())
 
   tweet Tweet @relation(fields: [tweetId], references: [id])
   user  User  @relation(fields: [username], references: [username])
 
-  commentReplies Comment?  @relation("CommentReplies", fields: [repliesId], references: [id], onDelete: Cascade)
+  commentReplies Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
   replies        Comment[] @relation("CommentReplies")
 }
 
 model Like {
   id Int @id @default(autoincrement())
 
-  tweetId  Int
-  username String
+  tweetId   Int?
+  commentId Int?
+  username  String
 
-  user  User   @relation(fields: [username], references: [username], onDelete: Cascade)
-  tweet Tweet? @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [username], references: [username], onDelete: Cascade)
+  tweet   Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   @@unique([tweetId, username])
+  @@unique([commentId, username])
 }
 
 enum Roles {
