@@ -124,7 +124,6 @@ export async function getTweet(
       username: tweet.username,
       name: tweet.user.profile?.name,
       userImage: tweet.user.profile?.image,
-      likes: tweet._count.like,
       comments: tweet._count.comment,
     };
     res.status(200).json(payload);
@@ -160,7 +159,6 @@ export async function getAlltweets(
       username: tweet.username,
       name: tweet.user.profile?.name,
       userImage: tweet.user.profile?.image,
-      likes: tweet._count.like,
       comments: tweet._count.comment,
     }));
     res.status(200).json(payload);
