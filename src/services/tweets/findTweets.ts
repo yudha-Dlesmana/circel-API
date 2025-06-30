@@ -76,6 +76,31 @@ export async function findTweet(id: number) {
 export async function findUserTweets(username: string) {
   const tweet = await prismaClient.tweet.findMany({
     where: { username },
+    select: {
+      id: true,
+      text: true,
+      image: true,
+      createAt: true,
+      _count: {
+        select: {
+          comment: true,
+          like: true,
+        },
+      },
+      username: true,
+      user: {
+        select: {
+          profile: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
+      comment: true,
+    },
+
     orderBy: {
       createAt: "desc",
     },

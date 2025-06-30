@@ -173,10 +173,21 @@ export async function getUserTweets(
   next: NextFunction
 ) {
   const { username } = req.params;
-
   try {
-    const tweet = await findUserTweets(username);
-    res.status(200).json(tweet);
+    const tweets = await findUserTweets(username);
+
+    const payload = tweets.map((tweet) => ({
+      id: tweet.id,
+      text: tweet.text,
+      image: tweet.image,
+      createAt: tweet.createAt,
+      username: tweet.username,
+      name: tweet.user.profile?.name,
+      userImage: tweet.user.profile?.image,
+      likes: tweet._count.like,
+      comments: tweet._count.comment,
+    }));
+    res.status(200).json(payload);
   } catch (error) {
     next(error);
   }

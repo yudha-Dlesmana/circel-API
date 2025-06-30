@@ -17,7 +17,6 @@ export async function countTweetLikes(tweetId: number) {
   });
   return likes;
 }
-
 export async function isLikedComment(username: string, commentId: number) {
   const isLiked = await prismaClient.like.findFirst({
     where: {
