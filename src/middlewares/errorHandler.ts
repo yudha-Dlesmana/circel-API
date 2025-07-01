@@ -8,6 +8,10 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
+  if (res.headersSent) {
+    return next(err);
+  }
+
   if (err instanceof Joi.ValidationError) {
     res.status(400).json({ messsage: err.message });
     return;

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { findUserProfile } from "../services/user/findUserProfile";
+import { findUser, findUserProfile } from "../services/user/findUserProfile";
 import { findUserSuggestions } from "../services/user/findUserSuggestions";
 import { findFollowers } from "../services/follow/findFollower";
 import { findFollowing } from "../services/follow/findFollowed";
@@ -25,6 +25,24 @@ export async function getUserProfile(
       ...follows,
     };
 
+    res.status(200).json(payload);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getUser(req: Request, res: Response, next: NextFunction) {
+  const { username } = req.params;
+  try {
+    const user = await findUser(username);
+    const payload = {
+      username: user.username,
+      name: user.profile?.name,
+      image: user.profile?.image,
+      bio: user.profile?.bio,
+      follower: user._count.follower,
+      following: user._count.following,
+    };
     res.status(200).json(payload);
   } catch (error) {
     next(error);
