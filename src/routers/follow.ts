@@ -4,7 +4,7 @@ import {
   checkFollow,
   follow,
   unfollow,
-} from "../controllers/followControllers";
+} from "../Controllers/followControllers";
 
 const router = Router();
 

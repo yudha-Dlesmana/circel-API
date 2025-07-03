@@ -1,19 +1,19 @@
 import { Request, Response, NextFunction } from "express";
-import { getUsername } from "../services/user/getUserProperties";
+import { getUsername } from "../Services/user/getUserProperties";
 import {
   createCommentLike,
   createTweetLike,
-} from "../services/likes/createLike";
+} from "../Services/likes/createLike";
 import {
   deleteCommentLike,
   deleteTweetLike,
-} from "../services/likes/deleteLike";
+} from "../Services/likes/deleteLike";
 import {
   isLikedTweet,
   countTweetLikes,
   isLikedComment,
   countCommentLikes,
-} from "../services/likes/checkLiked";
+} from "../Services/likes/checkLiked";
 
 export async function likeTweet(
   req: Request,

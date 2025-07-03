@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import authRouter from "./routers/auth";
+import authRouter from "./routers/Auth";
 import profileRouter from "./routers/profile";
 import userRouter from "./routers/user";
 import followRouter from "./routers/follow";
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
 
 app.use("/api/v1", authRouter);
-// app.use("/api/v1", profileRouter);
+app.use("/api/v1", profileRouter);
 // app.use("/api/v1", userRouter);
 // app.use("/api/v1", followRouter);
 // app.use("/api/v1", tweetRouter);

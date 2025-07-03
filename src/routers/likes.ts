@@ -7,7 +7,7 @@ import {
   likeTweet,
   removeCommentLike,
   removeTweetLike,
-} from "../controllers/likeController";
+} from "../Controllers/likeController";
 
 const router = Router();
 

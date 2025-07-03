@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { createComment } from "../services/comment/createComment";
-import { getUsername } from "../services/user/getUserProperties";
-import { supabase } from "../utils/supabaseClient";
-import { findComments, findReplies } from "../services/comment/findComments";
+import { createComment } from "../Services/comment/createComment";
+import { getUsername } from "../Services/user/getUserProperties";
+import { supabase } from "../Utils/SupabaseClient";
+import { findComments, findReplies } from "../Services/comment/findComments";
 
 export async function comment(req: Request, res: Response, next: NextFunction) {
   const { text } = req.body;

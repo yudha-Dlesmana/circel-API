@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { createFollow } from "../services/follow/createFollow";
-import { deleteFollow } from "../services/follow/deleteFollow";
-import { findFollows } from "../services/follow/checkFollow";
-import { getUsername } from "../services/user/getUserProperties";
+import { createFollow } from "../Services/follow/createFollow";
+import { deleteFollow } from "../Services/follow/deleteFollow";
+import { findFollows } from "../Services/follow/checkFollow";
+import { getUsername } from "../Services/user/getUserProperties";
 
 export async function follow(req: Request, res: Response, next: NextFunction) {
   const userId = (req as any).user.id;

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { patchProfile, postProfile } from "../controllers/profileControllers";
+import { patchProfile, postProfile } from "../Controllers/profileControllers";
 import { authentication } from "../middlewares/auth";
 import { supabaseUpload } from "../middlewares/UploadsProfileImage";
 

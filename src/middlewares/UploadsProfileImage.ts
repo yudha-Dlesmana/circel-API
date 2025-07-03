@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import multer from "multer";
-import { supabase } from "../utils/supabaseClient";
+import { supabase } from "../Utils/SupabaseClient";
 
 const upload = multer({ storage: multer.memoryStorage() });
 

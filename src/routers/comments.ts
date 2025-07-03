@@ -6,7 +6,7 @@ import {
   getComment,
   getRepliesComment,
   repliesComment,
-} from "../controllers/commentController";
+} from "../Controllers/commentController";
 
 const router = Router();
 

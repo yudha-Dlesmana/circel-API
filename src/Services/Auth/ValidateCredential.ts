@@ -1,6 +1,6 @@
 import { compare } from "bcrypt";
 import { prismaClient } from "../../database/prisma";
-import { UserPayload } from "../../utils/jwt";
+import { UserPayload } from "../../Utils/Jwt";
 
 interface Login {
   email: string;

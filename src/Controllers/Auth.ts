@@ -4,14 +4,14 @@ import {
   fotgotSchema,
   registerSchema,
   resetPasswordSchema,
-} from "../schme/authSchema";
-import { createReponse, Status } from "../utils/response";
-import { sendResetPasswordLink } from "../utils/mailer";
-import { signToken, UserPayload, verifyToken } from "../utils/jwt";
-import { createUser } from "../services/auth/RegisterUser";
-import { validateCredential } from "../services/auth/ValidateCredential";
-import { validateEmail } from "../services/auth/ValidateEmail";
-import { changePassword } from "../services/auth/ChangePassword";
+} from "../Schme/AuthSchema";
+import { createReponse, Status } from "../Utils/Response";
+import { sendResetPasswordLink } from "../Utils/Mailer";
+import { signToken, UserPayload, verifyToken } from "../Utils/Jwt";
+import { createUser } from "../Services/Auth/RegisterUser";
+import { validateCredential } from "../Services/Auth/ValidateCredential";
+import { validateEmail } from "../Services/Auth/ValidateEmail";
+import { changePassword } from "../Services/Auth/ChangePassword";
 
 export async function register(
   req: Request,

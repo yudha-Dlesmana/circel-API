@@ -1,5 +1,5 @@
 import { prismaClient } from "../../database/prisma";
-import { UserPayload } from "../../utils/jwt";
+import { UserPayload } from "../../Utils/Jwt";
 
 interface Forgot {
   email: string;

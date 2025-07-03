@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { registerUserProfile } from "../services/user/registerUserProfile";
-import { editProfileSchema, profileSchema } from "../schme/profileValidation";
-import { updateUserProfile } from "../services/user/updateUserProfile";
-import { supabase } from "../utils/supabaseClient";
+import { registerUserProfile } from "../Services/user/registerUserProfile";
+import { editProfileSchema, profileSchema } from "../Schme/profileValidation";
+import { updateUserProfile } from "../Services/user/updateUserProfile";
+import { supabase } from "../Utils/SupabaseClient";
 
 export async function postProfile(
   req: Request,

@@ -8,7 +8,7 @@ import {
   getUserTweets,
   patchTweets,
   postTweets,
-} from "../controllers/tweetControllers";
+} from "../Controllers/tweetControllers";
 
 const router = Router();
 

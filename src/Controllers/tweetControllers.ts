@@ -1,16 +1,16 @@
-import { supabase } from "../utils/supabaseClient";
+import { supabase } from "../Utils/SupabaseClient";
 import { Request, Response, NextFunction } from "express";
-import { getUsername } from "../services/user/getUserProperties";
-import { createTweets } from "../services/tweets/createTweets";
-import { deleteTweet } from "../services/tweets/deleteTweets";
+import { getUsername } from "../Services/user/getUserProperties";
+import { createTweets } from "../Services/tweets/createTweets";
+import { deleteTweet } from "../Services/tweets/deleteTweets";
 import {
   findAllTweets,
   findTweet,
   findUserTweets,
-} from "../services/tweets/findTweets";
-import { editTweet } from "../services/tweets/editTweets";
-import { findFollowers } from "../services/follow/findFollower";
-import { findFollowing } from "../services/follow/findFollowed";
+} from "../Services/tweets/findTweets";
+import { editTweet } from "../Services/tweets/editTweets";
+import { findFollowers } from "../Services/follow/findFollower";
+import { findFollowing } from "../Services/follow/findFollowed";
 
 export async function postTweets(
   req: Request,
