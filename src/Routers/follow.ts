@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authentication } from "../middlewares/auth";
+import { authentication } from "../Middlewares/Auth";
 import {
   checkFollow,
   follow,

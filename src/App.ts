@@ -2,24 +2,16 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import authRouter from "./routers/Auth";
-import profileRouter from "./routers/profile";
-import userRouter from "./routers/user";
-import followRouter from "./routers/follow";
-import tweetRouter from "./routers/tweets";
-import likeRouter from "./routers/likes";
-import commentRouter from "./routers/comments";
+import authRouter from "./Routers/Auth";
+import profileRouter from "./Routers/profile";
 
-import corsMiddleware from "./configs/cors";
-
-import { errorHandler } from "./middlewares/errorHandler";
+import { errorHandler } from "./Middlewares/ErrorHandler";
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(corsMiddleware);
 
 app.use("/api/v1", authRouter);
 app.use("/api/v1", profileRouter);

@@ -24,16 +24,3 @@ export function authentication(
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
-
-export function authorization(roles: string[]) {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const role = (req as any).user.role;
-
-    try {
-      if (!roles.includes(role)) throw new Error("Access Denied");
-      next();
-    } catch (error) {
-      next(error);
-    }
-  };
-}

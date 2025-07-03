@@ -1,6 +1,6 @@
 import Router from "express";
-import { authentication } from "../middlewares/auth";
-import { uploadReplies } from "../middlewares/uploadRepliesImage";
+import { authentication } from "../Middlewares/Auth";
+import { uploadReplies } from "../Middlewares/uploadRepliesImage";
 import {
   comment,
   getComment,
