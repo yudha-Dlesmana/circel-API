@@ -11,7 +11,6 @@ import likeRouter from "./routers/likes";
 import commentRouter from "./routers/comments";
 
 import corsMiddleware from "./configs/cors";
-import { limiter } from "./configs/rateLimit";
 
 import { errorHandler } from "./middlewares/errorHandler";
 
@@ -21,7 +20,6 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
-// app.use(limiter);
 
 app.use("/api/v1", authRouter);
 app.use("/api/v1", profileRouter);

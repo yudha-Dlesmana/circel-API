@@ -2,10 +2,12 @@ import { Request, Response, NextFunction } from "express";
 import {
   authSchema,
   fotgotSchema,
+  registerSchema,
   resetPasswordSchema,
 } from "../validation/authValidation";
+import { createReponse, Status } from "../utils/response";
 import { sendResetPasswordLink } from "../utils/mailer";
-import { signToken, verifyToken } from "../utils/jwt";
+import { signToken, UserPayload, verifyToken } from "../utils/jwt";
 import { createUser } from "../services/auth/RegisterUser";
 import { validateCredential } from "../services/auth/ValidateCredential";
 import { validateEmail } from "../services/auth/ValidateEmail";
@@ -17,13 +19,21 @@ export async function register(
   next: NextFunction
 ) {
   try {
-    await authSchema.validateAsync(req.body);
+    await registerSchema.validateAsync(req.body);
 
-    const payload = await createUser(req.body);
+    const user = await createUser(req.body);
 
-    const token = signToken(payload);
+    const token = signToken({ id: user.id, role: user.role } as UserPayload);
 
-    res.status(200).json({ message: "User Registered", token });
+    res.statusCode = 201;
+    res.statusMessage = "SUCCESS";
+    res.json(
+      createReponse(Status.success, 201, "Registration successful", {
+        username: user.username,
+        name: user.name,
+        token,
+      })
+    );
   } catch (error) {
     next(error);
   }

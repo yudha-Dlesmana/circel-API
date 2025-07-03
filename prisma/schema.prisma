@@ -19,6 +19,7 @@ model User {
   username String   @unique
   email    String   @unique
   password String
+  name     String
   profile  Profile?
   role     Roles    @default(USER)
   createAt DateTime @default(now())
@@ -32,7 +33,6 @@ model User {
 
 model Profile {
   userId   String    @id
-  name     String
   bio      String?
   image    String?
   createAt DateTime  @default(now())
