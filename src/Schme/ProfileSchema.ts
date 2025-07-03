@@ -24,5 +24,7 @@ export const editProfileSchema = z.object({
     .optional(),
   image: z.string().url("Invalid image URL").nullable().optional(),
   deleteImage: z.boolean().optional(),
+  background: z.string().url("Invalid image URL").nullable().optional(),
+  deleteBackground: z.boolean().optional(),
 });
 export type EditProfile = z.infer<typeof editProfileSchema>;

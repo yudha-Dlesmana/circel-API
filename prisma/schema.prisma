@@ -32,13 +32,13 @@ model User {
 }
 
 model Profile {
-  userId    String    @id
-  bio       String?
-  image     String?
-  backgound String?
-  createAt  DateTime  @default(now())
-  updateAt  DateTime?
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String    @id
+  bio        String?
+  image      String?
+  background String?
+  createAt   DateTime  @default(now())
+  updateAt   DateTime?
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Follows {

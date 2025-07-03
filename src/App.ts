@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import authRouter from "./Routers/Auth";
-import profileRouter from "./Routers/profile";
+import profileRouter from "./Routers/Profile";
 
 import { errorHandler } from "./Middlewares/ErrorHandler";
 
