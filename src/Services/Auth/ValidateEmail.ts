@@ -1,5 +1,5 @@
 import { prismaClient } from "../../database/prisma";
-import { Forgot } from "../../Schme/AuthSchema";
+import { Forgot } from "../../Schema/AuthSchema";
 import { UserPayload } from "../../Utils/Jwt";
 
 export async function validateEmail(forgot: Forgot) {

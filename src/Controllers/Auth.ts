@@ -4,7 +4,7 @@ import {
   fotgotSchema,
   registerSchema,
   resetPasswordSchema,
-} from "../Schme/AuthSchema";
+} from "../Schema/AuthSchema";
 import { createReponse, Status } from "../Utils/Response";
 import { sendResetPasswordLink } from "../Utils/Mailer";
 import { signToken, UserPayload, verifyToken } from "../Utils/Jwt";

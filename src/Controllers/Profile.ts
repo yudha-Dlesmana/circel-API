@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { registerUserProfile } from "../Services/Profile/RegisterUserProfile";
-import { editProfileSchema, profileSchema } from "../Schme/ProfileSchema";
+import { editProfileSchema, profileSchema } from "../Schema/ProfileSchema";
 import { updateUserProfile } from "../Services/Profile/UpdateUserProfile";
 import { supabase } from "../Utils/SupabaseClient";
 import { createReponse, Status } from "../Utils/Response";
