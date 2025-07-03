@@ -1,6 +1,7 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { Request, Response, NextFunction } from "express";
 import { MulterError } from "multer";
+import { ZodError } from "zod";
 
 export function errorHandler(
   err: Error,
@@ -12,6 +13,7 @@ export function errorHandler(
     res.statusCode = 400;
     res.statusMessage = "Bad Request";
     res.json({
+      name: err.name,
       code: err.code,
       meta: err.meta,
       message: err.message,
@@ -26,6 +28,7 @@ export function errorHandler(
     res.statusCode = 400;
     res.statusMessage = "Bad Request";
     res.json({
+      name: err.name,
       code: err.code,
       field: err.field,
       message: err.message,
@@ -34,8 +37,20 @@ export function errorHandler(
     });
     return;
   }
+  if (err instanceof ZodError) {
+    res.statusCode = 400;
+    res.statusMessage = "Bad Request";
+    res.json({
+      name: err.name,
+      path: err.errors[0].path,
+      message: err.errors[0].message,
+    });
+    return;
+  }
 
   if (err instanceof Error) {
+    res.statusCode = 400;
+    res.statusMessage = "Bad Request";
     res.json({
       code: err.name,
       message: err.message,
