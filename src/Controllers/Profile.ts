@@ -22,7 +22,7 @@ export async function createProfile(
     res.statusCode = 201;
     res.statusMessage = "Created";
     res.json(
-      createReponse(Status.success, 201, "Profile created successfully", {
+      createReponse(Status.success, 201, "Profile created successfully.", {
         userId: profile.userId,
         bio: profile.bio,
         image: profile.image,
@@ -63,7 +63,7 @@ export async function patchProfile(
     res.statusCode = 200;
     res.statusMessage = "OK";
     res.json(
-      createReponse(Status.success, 200, "", {
+      createReponse(Status.success, 200, "Profile updated successfully.", {
         username: updateProfile.username,
         name: updateProfile.name,
         bio: updateProfile.profile?.bio,

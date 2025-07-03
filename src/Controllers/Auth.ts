@@ -28,11 +28,16 @@ export async function register(
     res.statusCode = 201;
     res.statusMessage = "SUCCESS";
     res.json(
-      createReponse(Status.success, 201, "Registration successful", {
-        username: user.username,
-        name: user.name,
-        token,
-      })
+      createReponse(
+        Status.success,
+        201,
+        "Your account has been created successfully.",
+        {
+          username: user.username,
+          name: user.name,
+          token,
+        }
+      )
     );
   } catch (error) {
     next(error);
@@ -49,7 +54,11 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     res.statusCode = 200;
     res.statusMessage = "OK";
-    res.json(createReponse(Status.success, 200, "success login", { token }));
+    res.json(
+      createReponse(Status.success, 200, "You have logged in successfully.", {
+        token,
+      })
+    );
   } catch (error) {
     next(error);
   }
@@ -83,7 +92,7 @@ export async function forgotPassword(
       createReponse(
         Status.success,
         200,
-        `We have sent a password reset link to ${email}. Please check your email.`,
+        `Reset password email has been sent.`,
         { resetLink }
       )
     );
@@ -112,7 +121,7 @@ export async function resetPassword(
       createReponse(
         Status.success,
         200,
-        `${username} your password has been reset`,
+        `Your password has been reset successfully.`,
         {}
       )
     );
