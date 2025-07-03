@@ -21,7 +21,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
-app.use(limiter);
+// app.use(limiter);
 
 app.use("/api/v1", authRouter);
 app.use("/api/v1", profileRouter);
