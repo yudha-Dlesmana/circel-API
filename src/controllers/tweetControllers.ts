@@ -157,7 +157,7 @@ export async function getAlltweets(
       image: tweet.image,
       createAt: tweet.createAt,
       username: tweet.username,
-      name: tweet.user.profile?.name,
+
       userImage: tweet.user.profile?.image,
       comments: tweet._count.comment,
     }));

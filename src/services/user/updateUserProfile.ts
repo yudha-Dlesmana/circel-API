@@ -15,7 +15,6 @@ export async function updateUserProfile(userId: string, payload: Payload) {
       username: payload.username,
       profile: {
         update: {
-          name: payload.name,
           bio: payload.bio,
           image: payload.deleteImage ? null : payload.image,
         },

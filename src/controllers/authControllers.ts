@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import {
-  authSchema,
+  loginSchema,
   fotgotSchema,
   registerSchema,
   resetPasswordSchema,
-} from "../validation/authValidation";
+} from "../schme/authSchema";
 import { createReponse, Status } from "../utils/response";
 import { sendResetPasswordLink } from "../utils/mailer";
 import { signToken, UserPayload, verifyToken } from "../utils/jwt";
@@ -19,7 +19,7 @@ export async function register(
   next: NextFunction
 ) {
   try {
-    await registerSchema.validateAsync(req.body);
+    registerSchema.parse(req.body);
 
     const user = await createUser(req.body);
 
@@ -41,13 +41,15 @@ export async function register(
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    await authSchema.validateAsync(req.body);
+    loginSchema.parse(req.body);
 
     const payload = await validateCredential(req.body);
 
     const token = signToken(payload);
 
-    res.status(200).json({ message: "Access Accepted", token });
+    res.statusCode = 200;
+    res.statusMessage = "OK";
+    res.json(createReponse(Status.success, 200, "success login", { token }));
   } catch (error) {
     next(error);
   }
@@ -61,7 +63,7 @@ export async function forgotPassword(
   try {
     const { email } = req.body;
 
-    await fotgotSchema.validateAsync(req.body);
+    fotgotSchema.parse(req.body);
 
     const payload = await validateEmail(req.body);
 
@@ -75,31 +77,46 @@ export async function forgotPassword(
       `Click this link to reset your password: ${resetLink}`
     );
 
-    res.status(200).json({
-      message: `We have sent a password reset link to ${email}. Please check your email.`,
-    });
+    res.statusCode = 200;
+    res.statusMessage = "OK";
+    res.json(
+      createReponse(
+        Status.success,
+        200,
+        `We have sent a password reset link to ${email}. Please check your email.`,
+        { resetLink }
+      )
+    );
   } catch (error) {
     next(error);
   }
 }
 
-export async function resetPassword(req: Request, res: Response) {
+export async function resetPassword(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { token } = req.params;
 
-    await resetPasswordSchema.validateAsync(req.body);
+    resetPasswordSchema.parse(req.body);
 
     const { id } = verifyToken(token as string);
 
     const { username } = await changePassword(id, req.body);
 
-    res
-      .status(200)
-      .json({ message: `${username}, your password has been reset` });
+    res.statusCode = 200;
+    res.statusMessage = "OK";
+    res.json(
+      createReponse(
+        Status.success,
+        200,
+        `${username} your password has been reset`,
+        {}
+      )
+    );
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(400).json({ message: error.message });
-    }
-    res.status(500).json({ message: "Internal Server Error" });
+    next(error);
   }
 }

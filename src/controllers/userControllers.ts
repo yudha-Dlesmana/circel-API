@@ -37,7 +37,6 @@ export async function getUser(req: Request, res: Response, next: NextFunction) {
     const user = await findUser(username);
     const payload = {
       username: user.username,
-      name: user.profile?.name,
       image: user.profile?.image,
       bio: user.profile?.bio,
       follower: user._count.follower,
@@ -59,7 +58,6 @@ export async function getSearchUser(
     const user = await searchUsers(query);
     const payload = user.map((user) => ({
       username: user.username,
-      name: user.profile?.name,
       image: user.profile?.image,
       bio: user.profile?.bio,
     }));
@@ -82,7 +80,6 @@ export async function getSuggestionUser(
     const suggestion = await findUserSuggestions(username);
     const payload = suggestion.map((item) => ({
       username: item.username,
-      name: item.profile?.name,
       image: item.profile?.image,
       ...item.follower,
     }));
@@ -104,7 +101,6 @@ export async function getFollower(
     const follower = await findFollowers(username);
     const payload = follower.map((item) => ({
       username: item.username,
-      name: item.profile?.name,
       image: item.profile?.image,
       bio: item.profile?.bio,
     }));
@@ -126,7 +122,6 @@ export async function getFollowing(
     const following = await findFollowing(username);
     const payload = following.map((item) => ({
       username: item.username,
-      name: item.profile?.name,
       image: item.profile?.image,
       bio: item.profile?.bio,
     }));

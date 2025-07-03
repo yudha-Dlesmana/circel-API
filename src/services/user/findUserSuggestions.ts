@@ -14,7 +14,6 @@ export async function findUserSuggestions(userUsername: string) {
       username: true,
       profile: {
         select: {
-          name: true,
           image: true,
         },
       },

@@ -11,7 +11,6 @@ export async function findFollowers(username: string, cursor?: string) {
       username: true,
       profile: {
         select: {
-          name: true,
           image: true,
           bio: true,
         },

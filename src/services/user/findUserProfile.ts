@@ -6,7 +6,6 @@ export async function findUserProfile(userId: string) {
     include: {
       profile: {
         select: {
-          name: true,
           bio: true,
           image: true,
         },
@@ -29,7 +28,6 @@ export async function findUser(username: string) {
       username: true,
       profile: {
         select: {
-          name: true,
           bio: true,
           image: true,
         },

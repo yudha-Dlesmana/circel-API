@@ -16,7 +16,6 @@ export async function getUsernameImage(userId: string) {
       username: true,
       profile: {
         select: {
-          name: true,
           image: true,
         },
       },
@@ -24,7 +23,6 @@ export async function getUsernameImage(userId: string) {
   });
   return {
     username: props.username,
-    name: props.profile?.name,
     image: props.profile?.image,
   };
 }

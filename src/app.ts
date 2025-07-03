@@ -22,12 +22,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
 
 app.use("/api/v1", authRouter);
-app.use("/api/v1", profileRouter);
-app.use("/api/v1", userRouter);
-app.use("/api/v1", followRouter);
-app.use("/api/v1", tweetRouter);
-app.use("/api/v1", likeRouter);
-app.use("/api/v1", commentRouter);
+// app.use("/api/v1", profileRouter);
+// app.use("/api/v1", userRouter);
+// app.use("/api/v1", followRouter);
+// app.use("/api/v1", tweetRouter);
+// app.use("/api/v1", likeRouter);
+// app.use("/api/v1", commentRouter);
 
 app.use(errorHandler);
 

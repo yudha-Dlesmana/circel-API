@@ -19,7 +19,6 @@ export async function findAllTweets(
         select: {
           profile: {
             select: {
-              name: true,
               image: true,
             },
           },
@@ -61,7 +60,6 @@ export async function findTweet(id: number) {
         select: {
           profile: {
             select: {
-              name: true,
               image: true,
             },
           },
@@ -92,7 +90,6 @@ export async function findUserTweets(username: string) {
         select: {
           profile: {
             select: {
-              name: true,
               image: true,
             },
           },

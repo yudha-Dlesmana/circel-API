@@ -10,7 +10,6 @@ export async function registerUserProfile(userId: string, payload: Payload) {
   const userProfile = await prismaClient.profile.create({
     data: {
       userId,
-      name: payload.name,
       bio: payload.bio,
       image: payload.image,
     },
