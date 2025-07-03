@@ -1,11 +1,7 @@
 import { compare } from "bcrypt";
 import { prismaClient } from "../../database/prisma";
 import { UserPayload } from "../../Utils/Jwt";
-
-interface Login {
-  email: string;
-  password: string;
-}
+import { Login } from "../../Schme/AuthSchema";
 
 export async function validateCredential(login: Login) {
   const user = await prismaClient.user.findUniqueOrThrow({

@@ -1,12 +1,22 @@
 import { Router } from "express";
-import { patchProfile, postProfile } from "../Controllers/profileControllers";
+import { createProfile, patchProfile } from "../Controllers/profileControllers";
 import { authentication } from "../Middlewares/Auth";
-import { supabaseUpload } from "../Middlewares/UploadsProfileImage";
+import { uploadField } from "../Middlewares/UploadField";
 
 const router = Router();
 
-router.post("/profile", authentication, supabaseUpload("image"), postProfile);
+router.post(
+  "/profile",
+  authentication,
+  uploadField(["profile"]),
+  createProfile
+);
 
-router.patch("/profile", authentication, supabaseUpload("image"), patchProfile);
+router.patch(
+  "/profile",
+  authentication,
+  uploadField(["profile", "background"]),
+  patchProfile
+);
 
 export default router;

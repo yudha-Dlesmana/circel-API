@@ -1,6 +1,6 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { Request, Response, NextFunction } from "express";
-import Joi from "joi";
+import { MulterError } from "multer";
 
 export function errorHandler(
   err: Error,
@@ -8,31 +8,38 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
-  if (res.headersSent) {
-    return next(err);
+  if (err instanceof PrismaClientKnownRequestError) {
+    res.statusCode = 400;
+    res.statusMessage = "Bad Request";
+    res.json({
+      code: err.code,
+      meta: err.meta,
+      message: err.message,
+      // name: err.name,
+      // client: err.clientVersion,
+      // batchRequest: err.batchRequestIdx,
+      // stack: err.stack,
+    });
+    return;
   }
-
-  if (err instanceof Joi.ValidationError) {
-    res.status(400).json({ messsage: err.message });
+  if (err instanceof MulterError) {
+    res.statusCode = 400;
+    res.statusMessage = "Bad Request";
+    res.json({
+      code: err.code,
+      field: err.field,
+      message: err.message,
+      // name: err.name, MulterError
+      // stack: err.stack, panjang bgt
+    });
     return;
   }
 
-  if (err instanceof PrismaClientKnownRequestError) {
-    switch (err.code) {
-      case "P2002":
-        res.status(400).json({ message: "UniqueConstraintViolation" });
-        break;
-      case "P2025":
-        res.status(400).json({ message: "Invalid Credentials" });
-        break;
-      default:
-        res.status(400).json({ code: err.code, meta: err.meta });
-        break;
-    }
-  }
-
   if (err instanceof Error) {
-    res.status(400).json({ message: err.message });
+    res.json({
+      code: err.name,
+      message: err.message,
+    });
     return;
   }
   res.status(500).json({ message: "UnknownError" });

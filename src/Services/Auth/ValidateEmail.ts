@@ -1,9 +1,6 @@
 import { prismaClient } from "../../database/prisma";
+import { Forgot } from "../../Schme/AuthSchema";
 import { UserPayload } from "../../Utils/Jwt";
-
-interface Forgot {
-  email: string;
-}
 
 export async function validateEmail(forgot: Forgot) {
   const user = await prismaClient.user.findUniqueOrThrow({

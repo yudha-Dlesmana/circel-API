@@ -1,12 +1,7 @@
 import { prismaClient } from "../../database/prisma";
+import type { Profile } from "../../Schme/ProfileSchema";
 
-export interface Payload {
-  name: string;
-  bio?: string;
-  image?: string;
-}
-
-export async function registerUserProfile(userId: string, payload: Payload) {
+export async function registerUserProfile(userId: string, payload: Profile) {
   const userProfile = await prismaClient.profile.create({
     data: {
       userId,

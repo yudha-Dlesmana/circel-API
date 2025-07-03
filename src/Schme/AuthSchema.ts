@@ -5,18 +5,18 @@ export const registerSchema = z.object({
   name: z.string().nonempty(),
   password: z.string().min(6).nonempty(),
 });
-export type register = z.infer<typeof registerSchema>;
+export type Register = z.infer<typeof registerSchema>;
 
 export const loginSchema = z.object({
   email: z.string().email().nonempty(),
   password: z.string().min(6).nonempty(),
 });
-export type login = z.infer<typeof loginSchema>;
+export type Login = z.infer<typeof loginSchema>;
 
 export const fotgotSchema = z.object({
   email: z.string().email().nonempty(),
 });
-export type forgot = z.infer<typeof fotgotSchema>;
+export type Forgot = z.infer<typeof fotgotSchema>;
 
 export const resetPasswordSchema = z
   .object({
@@ -32,6 +32,6 @@ export const resetPasswordSchema = z
       });
     }
   });
-export type resetPassword = z.infer<typeof resetPasswordSchema>;
+export type ResetPassword = z.infer<typeof resetPasswordSchema>;
 
 // next update gunakan validasi async untuk email cek ke db
