@@ -7,6 +7,7 @@ import profileRouter from "./Routers/Profile";
 import userRouter from "./Routers/User";
 import followRouter from "./Routers/Follow";
 import tweetRouter from "./Routers/Tweet";
+import likeRouter from "./Routers/Like";
 import { errorHandler } from "./Middlewares/ErrorHandler";
 
 const app = express();
@@ -20,7 +21,7 @@ app.use("/api/v1", profileRouter);
 app.use("/api/v1", userRouter);
 app.use("/api/v1", followRouter);
 app.use("/api/v1", tweetRouter);
-// app.use("/api/v1", likeRouter);
+app.use("/api/v1", likeRouter);
 // app.use("/api/v1", commentRouter);
 
 app.use(errorHandler);

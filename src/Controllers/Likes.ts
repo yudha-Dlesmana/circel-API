@@ -3,17 +3,18 @@ import { getUsername } from "../Services/User/GetUserProperties";
 import {
   createCommentLike,
   createTweetLike,
-} from "../Services/likes/createLike";
+} from "../Services/likes/CreateLike";
 import {
   deleteCommentLike,
   deleteTweetLike,
-} from "../Services/likes/deleteLike";
+} from "../Services/likes/DeleteLike";
 import {
   isLikedTweet,
   countTweetLikes,
   isLikedComment,
   countCommentLikes,
-} from "../Services/likes/checkLiked";
+} from "../Services/likes/CheckLiked";
+import { createResponse, Status } from "../Utils/Response";
 
 export async function likeTweet(
   req: Request,
@@ -22,11 +23,12 @@ export async function likeTweet(
 ) {
   const { tweetId } = req.params;
   const userId = (req as any).user.id;
-  const username = (await getUsername(userId)).username;
 
   try {
-    const like = await createTweetLike(username, Number(tweetId));
-    res.status(200).json(like);
+    const like = await createTweetLike(userId, Number(tweetId));
+    res.statusCode = 201;
+    res.statusMessage = "CREATED";
+    res.json(createResponse(Status.success, 201, "Like Post", like));
   } catch (error) {
     next(error);
   }
@@ -36,17 +38,14 @@ export async function likeComment(
   res: Response,
   next: NextFunction
 ) {
-  const { tweetId, commentId } = req.params;
+  const { commentId } = req.params;
   const userId = (req as any).user.id;
-  const username = (await getUsername(userId)).username;
 
   try {
-    const like = await createCommentLike(
-      username,
-      Number(tweetId),
-      Number(commentId)
-    );
-    res.status(200).json(like);
+    const like = await createCommentLike(userId, Number(commentId));
+    res.statusCode = 201;
+    res.statusMessage = "CREATED";
+    res.json(createResponse(Status.success, 201, "like comment", like));
   } catch (error) {
     next(error);
   }
@@ -59,10 +58,11 @@ export async function removeTweetLike(
 ) {
   const { tweetId } = req.params;
   const userId = (req as any).user.id;
-  const username = (await getUsername(userId)).username;
   try {
-    await deleteTweetLike(username, Number(tweetId));
-    res.status(200).json("remove like");
+    await deleteTweetLike(userId, Number(tweetId));
+    res.statusCode = 204;
+    res.statusMessage = "No Content";
+    res.json(createResponse(Status.success, 204, "remove like", {}));
   } catch (error) {
     next(error);
   }
@@ -74,10 +74,11 @@ export async function removeCommentLike(
 ) {
   const { commentId } = req.params;
   const userId = (req as any).user.id;
-  const username = (await getUsername(userId)).username;
   try {
-    await deleteCommentLike(username, Number(commentId));
-    res.status(200).json("remove like");
+    await deleteCommentLike(userId, Number(commentId));
+    res.statusCode = 204;
+    res.statusMessage = "No Content";
+    res.json(createResponse(Status.success, 204, "remove like", {}));
   } catch (error) {
     next(error);
   }
@@ -90,11 +91,19 @@ export async function checkTweetLiked(
 ) {
   const { tweetId } = req.params;
   const userId = (req as any).user.id;
-  const username = (await getUsername(userId)).username;
   try {
-    const isLiked = await isLikedTweet(username, Number(tweetId));
+    const isLiked = await isLikedTweet(userId, Number(tweetId));
     const countlikes = await countTweetLikes(Number(tweetId));
-    res.status(200).json({ isLiked, countlikes });
+    res.statusCode = 200;
+    res.statusMessage = "OK";
+    res.json(
+      createResponse(
+        Status.success,
+        200,
+        "check isLiked and cound total like",
+        { isLiked, countlikes }
+      )
+    );
   } catch (error) {
     next(error);
   }
@@ -110,7 +119,16 @@ export async function checkCommentLiked(
   try {
     const isLiked = await isLikedComment(username, Number(commentId));
     const countlikes = await countCommentLikes(Number(commentId));
-    res.status(200).json({ isLiked, countlikes });
+    res.statusCode = 200;
+    res.statusMessage = "OK";
+    res.json(
+      createResponse(
+        Status.success,
+        200,
+        "check isLiked and cound total like",
+        { isLiked, countlikes }
+      )
+    );
   } catch (error) {
     next(error);
   }

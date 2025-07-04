@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProfile, patchProfile } from "../Controllers/Profile";
+import { createProfile, patchProfile } from "../Controllers/Profiles";
 import { authentication } from "../Middlewares/Auth";
 import { uploadField } from "../Middlewares/UploadField";
 

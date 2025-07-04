@@ -1,10 +1,10 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function isLikedTweet(username: string, tweetId: number) {
+export async function isLikedTweet(userId: string, tweetId: number) {
   const isLiked = await prismaClient.like.findFirst({
     where: {
       tweetId,
-      username,
+      userId,
     },
   });
   return !!isLiked;
@@ -17,10 +17,11 @@ export async function countTweetLikes(tweetId: number) {
   });
   return likes;
 }
-export async function isLikedComment(username: string, commentId: number) {
+
+export async function isLikedComment(userId: string, commentId: number) {
   const isLiked = await prismaClient.like.findFirst({
     where: {
-      username,
+      userId,
       commentId,
     },
   });

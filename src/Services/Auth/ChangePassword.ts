@@ -1,6 +1,6 @@
 import { hash } from "bcrypt";
 import { prismaClient } from "../../database/prisma";
-import type { ResetPassword } from "../../Schema/AuthSchema";
+import type { ResetPassword } from "../../Schemas/AuthSchema";
 
 export async function changePassword(id: string, resetPassword: ResetPassword) {
   const hashPassword = await hash(resetPassword.password, 10);

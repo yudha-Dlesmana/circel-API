@@ -6,7 +6,7 @@ import {
   getTweet,
   getUserTweets,
   postTweets,
-} from "../Controllers/Tweet";
+} from "../Controllers/Tweets";
 import { uploadField } from "../Middlewares/UploadField";
 
 const router = Router();

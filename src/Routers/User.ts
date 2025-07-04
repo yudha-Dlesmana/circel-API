@@ -7,7 +7,7 @@ import {
   getSuggestionUser,
   getUser,
   getUserProfile,
-} from "../Controllers/User";
+} from "../Controllers/Users";
 
 const router = Router();
 
