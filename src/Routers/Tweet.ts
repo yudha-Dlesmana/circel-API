@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { authentication } from "../Middlewares/Auth";
-import { uploadTweets } from "../Middlewares/uploadsTweetImage";
 import {
   getAlltweets,
   getTweet,
