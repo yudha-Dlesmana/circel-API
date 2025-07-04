@@ -86,14 +86,14 @@ model Like {
 
   tweetId   Int?
   commentId Int?
-  username  String
+  userId    String
 
-  user    User     @relation(fields: [username], references: [username], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   tweet   Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
-  @@unique([tweetId, username])
-  @@unique([commentId, username])
+  @@unique([tweetId, userId])
+  @@unique([commentId, userId])
 }
 
 enum Roles {
