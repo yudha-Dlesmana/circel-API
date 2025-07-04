@@ -5,7 +5,7 @@ import {
   registerSchema,
   resetPasswordSchema,
 } from "../Schema/AuthSchema";
-import { createReponse, Status } from "../Utils/Response";
+import { createResponse, Status } from "../Utils/Response";
 import { sendResetPasswordLink } from "../Utils/Mailer";
 import { signToken, UserPayload, verifyToken } from "../Utils/Jwt";
 import { createUser } from "../Services/Auth/RegisterUser";
@@ -28,7 +28,7 @@ export async function register(
     res.statusCode = 201;
     res.statusMessage = "SUCCESS";
     res.json(
-      createReponse(
+      createResponse(
         Status.success,
         201,
         "Your account has been created successfully.",
@@ -55,7 +55,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     res.statusCode = 200;
     res.statusMessage = "OK";
     res.json(
-      createReponse(Status.success, 200, "You have logged in successfully.", {
+      createResponse(Status.success, 200, "You have logged in successfully.", {
         token,
       })
     );
@@ -89,7 +89,7 @@ export async function forgotPassword(
     res.statusCode = 200;
     res.statusMessage = "OK";
     res.json(
-      createReponse(
+      createResponse(
         Status.success,
         200,
         `Reset password email has been sent.`,
@@ -118,7 +118,7 @@ export async function resetPassword(
     res.statusCode = 200;
     res.statusMessage = "OK";
     res.json(
-      createReponse(
+      createResponse(
         Status.success,
         200,
         `Your password has been reset successfully.`,

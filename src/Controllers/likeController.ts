@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { getUsername } from "../Services/user/getUserProperties";
+import { getUsername } from "../Services/User/GetUserProperties";
 import {
   createCommentLike,
   createTweetLike,

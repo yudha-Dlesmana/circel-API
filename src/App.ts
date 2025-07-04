@@ -4,7 +4,8 @@ dotenv.config();
 
 import authRouter from "./Routers/Auth";
 import profileRouter from "./Routers/Profile";
-
+import userRouter from "./Routers/User";
+import followRouter from "./Routers/follow";
 import { errorHandler } from "./Middlewares/ErrorHandler";
 
 const app = express();
@@ -15,8 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", authRouter);
 app.use("/api/v1", profileRouter);
-// app.use("/api/v1", userRouter);
-// app.use("/api/v1", followRouter);
+app.use("/api/v1", userRouter);
+app.use("/api/v1", followRouter);
 // app.use("/api/v1", tweetRouter);
 // app.use("/api/v1", likeRouter);
 // app.use("/api/v1", commentRouter);

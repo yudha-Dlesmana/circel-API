@@ -8,6 +8,7 @@ export async function findUserProfile(userId: string) {
         select: {
           bio: true,
           image: true,
+          background: true,
         },
       },
       _count: {
@@ -26,10 +27,12 @@ export async function findUser(username: string) {
     where: { username },
     select: {
       username: true,
+      name: true,
       profile: {
         select: {
           bio: true,
           image: true,
+          background: true,
         },
       },
       _count: {

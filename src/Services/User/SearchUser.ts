@@ -1,9 +1,10 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function searchUsers(name: string | undefined) {
+export async function searchUsers(userId: string, name: string | undefined) {
   if (name) {
     const users = await prismaClient.user.findMany({
       where: {
+        id: { not: userId },
         name: {
           contains: name,
           mode: "insensitive",
@@ -11,6 +12,7 @@ export async function searchUsers(name: string | undefined) {
       },
       select: {
         username: true,
+        name: true,
         profile: {
           select: {
             image: true,

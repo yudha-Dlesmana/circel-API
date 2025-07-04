@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { createComment } from "../Services/comment/createComment";
-import { getUsername } from "../Services/user/getUserProperties";
+import { getUsername } from "../Services/User/GetUserProperties";
 import { supabase } from "../Utils/SupabaseClient";
 import { findComments, findReplies } from "../Services/comment/findComments";
 

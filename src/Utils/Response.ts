@@ -3,7 +3,7 @@ export enum Status {
   error = "ERROR",
 }
 
-export function createReponse<T>(
+export function createResponse<T>(
   status: Status,
   code: number,
   message: string,

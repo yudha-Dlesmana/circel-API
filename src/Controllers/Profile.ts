@@ -3,7 +3,7 @@ import { registerUserProfile } from "../Services/Profile/RegisterUserProfile";
 import { editProfileSchema, profileSchema } from "../Schema/ProfileSchema";
 import { updateUserProfile } from "../Services/Profile/UpdateUserProfile";
 import { supabase } from "../Utils/SupabaseClient";
-import { createReponse, Status } from "../Utils/Response";
+import { createResponse, Status } from "../Utils/Response";
 
 export async function createProfile(
   req: Request,
@@ -22,7 +22,7 @@ export async function createProfile(
     res.statusCode = 201;
     res.statusMessage = "Created";
     res.json(
-      createReponse(Status.success, 201, "Profile created successfully.", {
+      createResponse(Status.success, 201, "Profile created successfully.", {
         userId: profile.userId,
         bio: profile.bio,
         image: profile.image,
@@ -63,7 +63,7 @@ export async function patchProfile(
     res.statusCode = 200;
     res.statusMessage = "OK";
     res.json(
-      createReponse(Status.success, 200, "Profile updated successfully.", {
+      createResponse(Status.success, 200, "Profile updated successfully.", {
         username: updateProfile.username,
         name: updateProfile.name,
         bio: updateProfile.profile?.bio,

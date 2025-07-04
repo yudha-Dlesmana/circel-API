@@ -42,14 +42,14 @@ model Profile {
 }
 
 model Follows {
-  id                Int      @id @default(autoincrement())
-  followingUsername String
-  followerUsername  String
-  createAt          DateTime @default(now())
-  following         User     @relation("Following", fields: [followingUsername], references: [username], onDelete: Cascade)
-  follower          User     @relation("Follower", fields: [followerUsername], references: [username], onDelete: Cascade)
+  id          Int      @id @default(autoincrement())
+  followingId String
+  followerId  String
+  createAt    DateTime @default(now())
+  following   User     @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+  follower    User     @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
 
-  @@unique([followerUsername, followingUsername])
+  @@unique([followerId, followingId])
 }
 
 model Tweet {
