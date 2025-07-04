@@ -2,21 +2,18 @@ import { Router } from "express";
 import { authentication } from "../Middlewares/Auth";
 import { uploadTweets } from "../Middlewares/uploadsTweetImage";
 import {
-  deleteTweets,
   getAlltweets,
   getTweet,
   getUserTweets,
-  patchTweets,
   postTweets,
-} from "../Controllers/tweetControllers";
+} from "../Controllers/Tweet";
+import { uploadField } from "../Middlewares/UploadField";
 
 const router = Router();
 
-router.post("/tweets", authentication, uploadTweets("image"), postTweets);
-router.patch("/tweets", authentication, uploadTweets("image"), patchTweets);
-router.delete("/tweets", authentication, deleteTweets);
+router.post("/tweets", authentication, uploadField(["tweet"]), postTweets);
 router.get("/tweets/:username", authentication, getUserTweets);
-router.get("/feeds", authentication, getAlltweets);
+router.get("/tweets", authentication, getAlltweets);
 router.get("/tweet/:id", authentication, getTweet);
 
 export default router;

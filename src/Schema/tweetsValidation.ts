@@ -1,7 +1,7 @@
-import Joi from "joi";
+import z from "zod";
 
-export const tweetsSchema = Joi.object({
-  username: Joi.string().required(),
-  text: Joi.string().required().allow(""),
-  image: Joi.string().uri().optional(),
+export const tweetsSchema = z.object({
+  text: z.string(),
+  image: z.string().url().optional(),
 });
+export type Tweet = z.infer<typeof tweetsSchema>;

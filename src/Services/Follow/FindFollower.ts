@@ -8,6 +8,7 @@ export async function findFollowers(userId: string, cursor?: string) {
       },
     },
     select: {
+      id: true,
       username: true,
       name: true,
       profile: {

@@ -54,14 +54,14 @@ model Follows {
 
 model Tweet {
   id       Int       @id @default(autoincrement())
-  username String
+  userId   String
   text     String
   image    String?
   createAt DateTime  @default(now())
   comment  Comment[]
   like     Like[]
 
-  user User @relation(fields: [username], references: [username], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Comment {

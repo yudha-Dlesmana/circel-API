@@ -1,14 +1,10 @@
 import { prismaClient } from "../../database/prisma";
-interface payload {
-  username: string;
-  text: string;
-  image?: string;
-}
+import type { Tweet } from "../../Schema/tweetsValidation";
 
-export async function createTweets(payload: payload) {
+export async function createTweets(userId: string, payload: Tweet) {
   const post = await prismaClient.tweet.create({
     data: {
-      username: payload.username,
+      userId,
       text: payload.text,
       image: payload.image,
     },
