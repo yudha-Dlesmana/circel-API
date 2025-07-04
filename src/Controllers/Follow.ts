@@ -3,16 +3,20 @@ import { createFollow } from "../Services/follow/createFollow";
 import { deleteFollow } from "../Services/follow/deleteFollow";
 import { findFollows } from "../Services/follow/checkFollow";
 import { getUsername } from "../Services/User/GetUserProperties";
+import { createResponse, Status } from "../Utils/Response";
 
 export async function follow(req: Request, res: Response, next: NextFunction) {
   const userId = (req as any).user.id;
-  const { targetUsername } = req.params;
+  const { targetId } = req.params;
   try {
-    if (userId === targetUsername)
+    if (userId === targetId)
       throw new Error("Oops! You can't follow your own account.");
-    const { username } = await getUsername(userId);
-    const follow = await createFollow(username, targetUsername);
-    res.status(200).json(follow);
+    const follow = await createFollow(userId, targetId);
+    res.statusCode = 200;
+    res.statusMessage = "OK";
+    res.json(
+      createResponse(Status.success, 200, `following ${follow.followerId}`, {})
+    );
   } catch (error) {
     next(error);
   }
@@ -24,13 +28,15 @@ export async function unfollow(
   next: NextFunction
 ) {
   const userId = (req as any).user.id;
-  const { targetUsername } = req.params;
+  const { targetId } = req.params;
   try {
-    if (userId === targetUsername)
+    if (userId === targetId)
       throw new Error("Oops! You can't follow your own account.");
-    const { username } = await getUsername(userId);
-    await deleteFollow(username, targetUsername);
-    res.status(200).json({ message: "unfollow" });
+    await deleteFollow(userId, targetId);
+
+    res.statusCode = 200;
+    res.statusMessage = "OK";
+    res.json(createResponse(Status.success, 200, `unfollow ${targetId}`, {}));
   } catch (error) {
     next(error);
   }
@@ -47,8 +53,9 @@ export async function checkFollow(
     const { username } = await getUsername(userId);
 
     const isFollowed = await findFollows(username, targetUsername);
-
-    res.status(200).json(isFollowed);
+    res.statusCode = 200;
+    res.statusMessage = "OK";
+    res.json(createResponse(Status.success, 200, "check follow", isFollowed));
   } catch (error) {
     next(error);
   }

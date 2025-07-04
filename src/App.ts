@@ -5,7 +5,7 @@ dotenv.config();
 import authRouter from "./Routers/Auth";
 import profileRouter from "./Routers/Profile";
 import userRouter from "./Routers/User";
-import followRouter from "./Routers/follow";
+import followRouter from "./Routers/Follow";
 import { errorHandler } from "./Middlewares/ErrorHandler";
 
 const app = express();
