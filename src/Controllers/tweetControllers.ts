@@ -9,8 +9,8 @@ import {
   findUserTweets,
 } from "../Services/tweets/findTweets";
 import { editTweet } from "../Services/tweets/editTweets";
-import { findFollowers } from "../Services/follow/FindFollower";
-import { findFollowing } from "../Services/follow/FindFollowing";
+import { findFollowers } from "../Services/Follow/FindFollower";
+import { findFollowing } from "../Services/Follow/FindFollowing";
 
 export async function postTweets(
   req: Request,

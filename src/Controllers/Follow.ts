@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { createFollow } from "../Services/follow/createFollow";
-import { deleteFollow } from "../Services/follow/deleteFollow";
-import { findFollows } from "../Services/follow/checkFollow";
+import { createFollow } from "../Services/Follow/CreateFollow";
+import { deleteFollow } from "../Services/Follow/DeleteFollow";
+import { findFollows } from "../Services/Follow/CheckFollow";
 import { getUsername } from "../Services/User/GetUserProperties";
 import { createResponse, Status } from "../Utils/Response";
 

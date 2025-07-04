@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { findUser, findUserProfile } from "../Services/User/FindUserProfile";
 import { findUserSuggestions } from "../Services/User/FindUserSuggestions";
-import { findFollowers } from "../Services/follow/FindFollower";
-import { findFollowing } from "../Services/follow/FindFollowing";
+import { findFollowers } from "../Services/Follow/FindFollower";
+import { findFollowing } from "../Services/Follow/FindFollowing";
 import { searchUsers } from "../Services/User/SearchUser";
 import { getUsername } from "../Services/User/GetUserProperties";
 import { createResponse, Status } from "../Utils/Response";
