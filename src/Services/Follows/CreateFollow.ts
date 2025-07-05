@@ -1,10 +1,10 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function createFollow(username: string, targetUsername: string) {
+export async function createFollow(userId: string, targetUserId: string) {
   const follows = await prismaClient.follows.create({
     data: {
-      followerUsername: targetUsername,
-      followingUsername: username,
+      followerId: targetUserId,
+      followingId: userId,
     },
   });
   return follows;

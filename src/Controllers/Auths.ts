@@ -26,7 +26,7 @@ export async function register(
     const token = signToken({ id: user.id, role: user.role } as UserPayload);
 
     res.statusCode = 201;
-    res.statusMessage = "SUCCESS";
+    res.statusMessage = "CREATED";
     res.json(
       createResponse(
         Status.success,
@@ -53,7 +53,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     const token = signToken(payload);
 
     res.statusCode = 200;
-    res.statusMessage = "OK";
+    res.statusMessage = "SUCCESS";
     res.json(
       createResponse(Status.success, 200, "You have logged in successfully.", {
         token,

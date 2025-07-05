@@ -4,9 +4,10 @@ import { UserPayload } from "../../Utils/Jwt";
 import { Login } from "../../Schemas/Auths";
 
 export async function validateCredential(login: Login) {
-  const user = await prismaClient.user.findUniqueOrThrow({
+  const user = await prismaClient.user.findUnique({
     where: { email: login.email },
   });
+  if (!user) throw new Error("InvalidCredentialsError");
 
   const isMatch = await compare(login.password, user.password);
   if (!isMatch) throw new Error("InvalidCredentialsError");
