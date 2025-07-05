@@ -2,10 +2,10 @@ import { prismaClient } from "../../database/prisma";
 
 interface payload {
   text: string;
-  image?: string;
+  imageUrl?: string;
 }
 interface relation {
-  username: string;
+  userId: string;
   tweetId: number;
   parentId?: number;
 }
@@ -13,11 +13,11 @@ interface relation {
 export async function createComment(payload: payload, relation: relation) {
   const comment = await prismaClient.comment.create({
     data: {
-      username: relation.username,
       tweetId: relation.tweetId,
+      userId: relation.userId,
       parentId: relation.parentId,
       text: payload.text,
-      image: payload?.image,
+      image: payload?.imageUrl,
     },
   });
   return comment;

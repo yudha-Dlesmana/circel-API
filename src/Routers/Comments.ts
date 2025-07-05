@@ -1,22 +1,21 @@
 import Router from "express";
 import { authentication } from "../Middlewares/Auth";
-import { uploadReplies } from "../Middlewares/uploadRepliesImage";
 import {
-  comment,
+  commentTweet,
   getComment,
   getRepliesComment,
-  repliesComment,
-} from "../Controllers/commentController";
+} from "../Controllers/Comments";
+import { uploadField } from "../Middlewares/UploadField";
 
 const router = Router();
 
 router.post(
   "/comment/:tweetId",
   authentication,
-  uploadReplies("image"),
-  comment
+  uploadField(["comment"]),
+  commentTweet
 );
-router.post("/replies/:tweetId/:parentId", authentication, repliesComment);
+router.post("/replies/:tweetId/:parentId", authentication, commentTweet);
 
 router.get("/comment/:tweetId", authentication, getComment);
 router.get("/replies/:parentId", authentication, getRepliesComment);

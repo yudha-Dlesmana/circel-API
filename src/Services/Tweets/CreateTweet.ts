@@ -1,5 +1,5 @@
 import { prismaClient } from "../../database/prisma";
-import type { Tweet } from "../../Schemas/TweetsSchema";
+import type { Tweet } from "../../Schemas/Tweets";
 
 export async function createTweets(userId: string, payload: Tweet) {
   const post = await prismaClient.tweet.create({

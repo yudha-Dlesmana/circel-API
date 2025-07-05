@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { findUser, findUserProfile } from "../Services/User/FindUserProfile";
-import { findUserSuggestions } from "../Services/User/FindUserSuggestions";
-import { findFollowers } from "../Services/Follow/FindFollower";
-import { findFollowing } from "../Services/Follow/FindFollowing";
-import { searchUsers } from "../Services/User/SearchUser";
-import { getUsername } from "../Services/User/GetUserProperties";
+import { findUser, findUserProfile } from "../Services/Users/FindUserProfiles";
+import { findUserSuggestions } from "../Services/Users/FindUserSuggestions";
+import { findFollowers } from "../Services/Follows/FindFollowers";
+import { findFollowing } from "../Services/Follows/FindFollowings";
+import { searchUsers } from "../Services/Users/SearchUsers";
+import { getUsername } from "../Services/Users/GetUserProperties";
 import { createResponse, Status } from "../Utils/Response";
 
 export async function getUserProfile(

@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { createFollow } from "../Services/Follow/CreateFollow";
-import { deleteFollow } from "../Services/Follow/DeleteFollow";
-import { findFollows } from "../Services/Follow/CheckFollow";
-import { getUsername } from "../Services/User/GetUserProperties";
+import { createFollow } from "../Services/Follows/CreateFollow";
+import { deleteFollow } from "../Services/Follows/DeleteFollow";
+import { findFollows } from "../Services/Follows/CheckFollow";
+import { getUsername } from "../Services/Users/GetUserProperties";
 import { createResponse, Status } from "../Utils/Response";
 
 export async function follow(req: Request, res: Response, next: NextFunction) {

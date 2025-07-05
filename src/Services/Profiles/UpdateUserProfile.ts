@@ -1,5 +1,5 @@
 import { prismaClient } from "../../database/prisma";
-import type { EditProfile } from "../../Schemas/ProfileSchema";
+import type { EditProfile } from "../../Schemas/Profiles";
 
 export async function updateUserProfile(userId: string, payload: EditProfile) {
   const profile = await prismaClient.user.update({

@@ -1,13 +1,13 @@
 import { supabase } from "../Utils/SupabaseClient";
 import { Request, Response, NextFunction } from "express";
-import { createTweets } from "../Services/Tweets/CreateTweets";
+import { createTweets } from "../Services/Tweets/CreateTweet";
 import {
   findAllTweets,
   findTweet,
   findUserTweets,
 } from "../Services/Tweets/FindTweets";
-import { findFollowers } from "../Services/Follow/FindFollower";
-import { findFollowing } from "../Services/Follow/FindFollowing";
+import { findFollowers } from "../Services/Follows/FindFollowers";
+import { findFollowing } from "../Services/Follows/FindFollowings";
 import { createResponse, Status } from "../Utils/Response";
 
 export async function postTweets(

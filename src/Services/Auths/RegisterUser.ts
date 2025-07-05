@@ -1,6 +1,6 @@
 import { hash } from "bcrypt";
 import { prismaClient } from "../../database/prisma";
-import { Register } from "../../Schemas/AuthSchema";
+import { Register } from "../../Schemas/Auths";
 
 export async function createUser(register: Register) {
   const username = `@${register.email.split("@")[0]}`;

@@ -2,12 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-import authRouter from "./Routers/Auth";
-import profileRouter from "./Routers/Profile";
-import userRouter from "./Routers/User";
-import followRouter from "./Routers/Follow";
-import tweetRouter from "./Routers/Tweet";
-import likeRouter from "./Routers/Like";
+import authRouter from "./Routers/Auths";
+import profileRouter from "./Routers/Profiles";
+import userRouter from "./Routers/Users";
+import followRouter from "./Routers/Follows";
+import tweetRouter from "./Routers/Tweets";
+import likeRouter from "./Routers/Likes";
 import { errorHandler } from "./Middlewares/ErrorHandler";
 
 const app = express();

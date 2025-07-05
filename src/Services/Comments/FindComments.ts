@@ -1,6 +1,6 @@
 import { prismaClient } from "../../database/prisma";
 
-export async function findComments(tweetId: number) {
+export async function findComments(tweetId: number, cursor?: number) {
   const comment = await prismaClient.comment.findMany({
     where: {
       tweetId,
@@ -10,13 +10,13 @@ export async function findComments(tweetId: number) {
       id: true,
       text: true,
       image: true,
-      username: true,
       user: {
         select: {
+          name: true,
+          username: true,
           profile: {
             select: {
               image: true,
-              name: true,
             },
           },
         },
@@ -29,6 +29,13 @@ export async function findComments(tweetId: number) {
       },
       createAt: true,
     },
+    take: 5,
+    skip: cursor ? 1 : 0,
+    ...(cursor && {
+      cursor: {
+        id: cursor,
+      },
+    }),
     orderBy: {
       createAt: "desc",
     },
@@ -36,7 +43,7 @@ export async function findComments(tweetId: number) {
   return comment;
 }
 
-export async function findReplies(parentId: number) {
+export async function findReplies(parentId: number, cursor?: number) {
   const replies = await prismaClient.comment.findMany({
     where: {
       parentId,
@@ -44,13 +51,13 @@ export async function findReplies(parentId: number) {
     select: {
       id: true,
       text: true,
-      username: true,
       user: {
         select: {
+          name: true,
+          username: true,
           profile: {
             select: {
               image: true,
-              name: true,
             },
           },
         },
@@ -62,6 +69,11 @@ export async function findReplies(parentId: number) {
       },
       createAt: true,
     },
+    take: 3,
+    skip: cursor ? 1 : 0,
+    ...(cursor && {
+      cursor: { id: cursor },
+    }),
     orderBy: {
       createAt: "desc",
     },

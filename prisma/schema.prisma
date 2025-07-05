@@ -67,7 +67,7 @@ model Tweet {
 model Comment {
   id       Int      @id @default(autoincrement())
   tweetId  Int
-  username String
+  userId   String
   text     String
   image    String?
   parentId Int?
@@ -75,7 +75,7 @@ model Comment {
   like     Like[]
 
   tweet Tweet @relation(fields: [tweetId], references: [id])
-  user  User  @relation(fields: [username], references: [username])
+  user  User  @relation(fields: [userId], references: [id])
 
   commentReplies Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
   replies        Comment[] @relation("CommentReplies")
