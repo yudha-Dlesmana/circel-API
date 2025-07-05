@@ -117,8 +117,9 @@ export async function getFollower(
   next: NextFunction
 ) {
   const userId = (req as any).user.id;
+  const { cursor } = req.query;
   try {
-    const follower = await findFollowers(userId);
+    const follower = await findFollowers(userId, cursor as string);
     const payload = {
       follower: follower.map((item) => ({
         name: item.name,
@@ -126,9 +127,10 @@ export async function getFollower(
         bio: item.profile?.bio,
         image: item.profile?.image,
       })),
-      cursor: follower.length
-        ? follower[follower.length - 1].username
-        : undefined,
+      cursor:
+        follower.length == 10
+          ? follower[follower.length - 1].username
+          : undefined,
     };
     (res.statusCode = 200), (res.statusMessage = "OK");
     res.json(createResponse(Status.success, 200, "get followers", payload));
