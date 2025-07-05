@@ -156,9 +156,10 @@ export async function getFollowing(
         image: item.profile?.image,
         bio: item.profile?.bio,
       })),
-      cursor: following.length
-        ? following[following.length - 1].username
-        : undefined,
+      cursor:
+        following.length == 10
+          ? following[following.length - 1].username
+          : undefined,
     };
     res.statusCode = 200;
     res.statusMessage = "OK";
