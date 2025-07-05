@@ -74,9 +74,8 @@ export async function getComment(
         likes: comment._count.like,
         replies: comment._count.replies,
       })),
-      nextCursor: comments.length
-        ? comments[comments.length - 1].id
-        : undefined,
+      cursor:
+        comments.length == 5 ? comments[comments.length - 1].id : undefined,
     };
     res.statusCode = 200;
     res.statusMessage = "OK";
@@ -105,7 +104,7 @@ export async function getRepliesComment(
         createAt: reply.createAt,
         likes: reply._count.like,
       })),
-      cursor: replies.length ? replies[replies.length - 1].id : undefined,
+      cursor: replies.length == 3 ? replies[replies.length - 1].id : undefined,
     };
     res.statusCode = 200;
     res.statusMessage = "OK";
