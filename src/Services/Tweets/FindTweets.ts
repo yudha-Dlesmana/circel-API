@@ -66,6 +66,7 @@ export async function findAllTweets(
         },
       },
     },
+    take: 13,
     skip: cursor ? 1 : 0,
     ...(cursor && {
       cursor: {

@@ -66,7 +66,7 @@ export async function getAlltweets(
   next: NextFunction
 ) {
   const userId = (req as any).user.id;
-  const cursor = req.query;
+  const { cursor } = req.query;
 
   const follower = await findFollowers(userId);
   const following = await findFollowing(userId);
@@ -92,7 +92,7 @@ export async function getAlltweets(
         userImage: tweet.user.profile?.image,
         comments: tweet._count.comment,
       })),
-      nextcursor: tweets.length ? tweets[tweets.length - 1].id : undefined,
+      cursor: tweets.length == 13 ? tweets[tweets.length - 1].id : undefined,
     };
     res.json(createResponse(Status.success, 200, "get all tweets", payload));
   } catch (error) {
