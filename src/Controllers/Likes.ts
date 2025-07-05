@@ -115,9 +115,9 @@ export async function checkCommentLiked(
 ) {
   const { commentId } = req.params;
   const userId = (req as any).user.id;
-  const username = (await getUsername(userId)).username;
+
   try {
-    const isLiked = await isLikedComment(username, Number(commentId));
+    const isLiked = await isLikedComment(userId, Number(commentId));
     const countlikes = await countCommentLikes(Number(commentId));
     res.statusCode = 200;
     res.statusMessage = "OK";
