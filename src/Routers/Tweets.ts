@@ -13,6 +13,6 @@ const router = Router();
 router.post("/tweets", authentication, uploadField(["tweet"]), postTweets);
 router.get("/tweets", authentication, getAlltweets);
 router.get("/tweet/:id", authentication, getTweet);
-router.get("/tweets/:username", authentication, getUserTweets);
+router.get("/tweets/:userId", authentication, getUserTweets);
 
 export default router;

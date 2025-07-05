@@ -79,6 +79,7 @@ export async function findAllTweets(
 }
 
 export async function findUserTweets(userId: string, cursor?: number) {
+  if (!userId) return [];
   const tweet = await prismaClient.tweet.findMany({
     where: { userId },
     select: {
@@ -104,6 +105,7 @@ export async function findUserTweets(userId: string, cursor?: number) {
         },
       },
     },
+    take: 13,
     skip: cursor ? 1 : 0,
     ...(cursor && {
       cursor: {

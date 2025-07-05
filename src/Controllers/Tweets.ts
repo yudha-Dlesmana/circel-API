@@ -122,7 +122,7 @@ export async function getUserTweets(
         likes: tweet._count.like,
         comments: tweet._count.comment,
       })),
-      nextCursor: tweets.length ? tweets[tweets.length - 1].id : undefined,
+      cursor: tweets.length == 13 ? tweets[tweets.length - 1].id : undefined,
     };
     res.json(createResponse(Status.success, 200, "User's tweets", payload));
   } catch (error) {
