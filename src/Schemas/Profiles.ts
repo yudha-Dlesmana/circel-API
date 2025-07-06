@@ -7,6 +7,7 @@ export const profileSchema = z.object({
     .nullable()
     .optional(),
   image: z.string().url("Invalid image URL").nullable().optional(),
+  background: z.string().url("Invalid image URL").nullable().optional(),
 });
 export type Profile = z.infer<typeof profileSchema>;
 

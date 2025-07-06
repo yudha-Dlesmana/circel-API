@@ -8,7 +8,7 @@ const router = Router();
 router.post(
   "/profile",
   authentication,
-  uploadField(["profile"]),
+  uploadField(["profile", "background"]),
   createProfile
 );
 

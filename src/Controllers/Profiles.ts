@@ -14,7 +14,9 @@ export async function createProfile(
   const input = req.body;
   const profileUrl = (req as any).profileUrl;
   const profilePath = (req as any).profilePath;
-  const payload = { ...input, image: profileUrl };
+  const backgroundUrl = (req as any).backgroundUrl;
+  const backgroundPath = (req as any).backgroundPath;
+  const payload = { ...input, image: profileUrl, background: backgroundUrl };
   try {
     profileSchema.parse(payload);
 
@@ -30,6 +32,7 @@ export async function createProfile(
     );
   } catch (error) {
     await supabase.storage.from("profile").remove([profilePath]);
+    await supabase.storage.from("background").remove([backgroundPath]);
     next(error);
   }
 }
