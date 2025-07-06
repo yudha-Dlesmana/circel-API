@@ -13,10 +13,10 @@ export const loginSchema = z.object({
 });
 export type Login = z.infer<typeof loginSchema>;
 
-export const fotgotSchema = z.object({
+export const forgotSchema = z.object({
   email: z.string().email().nonempty(),
 });
-export type Forgot = z.infer<typeof fotgotSchema>;
+export type Forgot = z.infer<typeof forgotSchema>;
 
 export const resetPasswordSchema = z
   .object({
