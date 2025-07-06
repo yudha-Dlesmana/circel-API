@@ -10,12 +10,14 @@ import tweetRouter from "./Routers/Tweets";
 import likeRouter from "./Routers/Likes";
 import commentRouter from "./Routers/Comments";
 import { errorHandler } from "./Middlewares/ErrorHandler";
+import corsMiddleware from "./Configs/Cors";
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(corsMiddleware);
 
 app.use("/api/v1", authRouter);
 app.use("/api/v1", profileRouter);

@@ -28,14 +28,15 @@ export function errorHandler(
   if (err instanceof MulterError) {
     res.statusCode = 400;
     res.statusMessage = "Bad Request";
-    res.json({
-      name: err.name,
-      code: err.code,
-      field: err.field,
-      message: err.message,
-      // name: err.name, MulterError
-      // stack: err.stack
-    });
+    res.json(
+      createResponse(Status.error, 400, err.name, {
+        code: err.code,
+        field: err.field,
+        message: err.message,
+        // name: err.name, MulterError
+        // stack: err.stack
+      })
+    );
     return;
   }
   if (err instanceof ZodError) {
