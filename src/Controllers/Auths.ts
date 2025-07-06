@@ -93,7 +93,7 @@ export async function forgotPassword(
         Status.success,
         200,
         `Reset password email has been sent.`,
-        { resetLink }
+        {}
       )
     );
   } catch (error) {
@@ -113,7 +113,7 @@ export async function resetPassword(
 
     const { id } = verifyToken(token as string);
 
-    const { username } = await changePassword(id, req.body);
+    await changePassword(id, req.body);
 
     res.statusCode = 200;
     res.statusMessage = "OK";

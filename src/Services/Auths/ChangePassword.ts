@@ -5,12 +5,10 @@ import type { ResetPassword } from "../../Schemas/Auths";
 export async function changePassword(id: string, resetPassword: ResetPassword) {
   const hashPassword = await hash(resetPassword.password, 10);
 
-  const reset = await prismaClient.user.update({
+  await prismaClient.user.update({
     where: { id },
     data: {
       password: hashPassword,
     },
   });
-
-  return { username: reset.username };
 }
