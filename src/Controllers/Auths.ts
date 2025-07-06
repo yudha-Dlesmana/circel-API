@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import {
   loginSchema,
-  fotgotSchema,
+  forgotSchema,
   registerSchema,
   resetPasswordSchema,
 } from "../Schemas/Auths";
@@ -72,13 +72,13 @@ export async function forgotPassword(
   try {
     const { email } = req.body;
 
-    fotgotSchema.parse(req.body);
+    forgotSchema.parse(req.body);
 
     const payload = await validateEmail(req.body);
 
     const token = signToken(payload);
 
-    const resetLink = `http://localhost:8000/api/v1/reset-password/${token}`;
+    const resetLink = `http://localhost:5173/reset/${token}`;
 
     await sendResetPasswordLink(
       email,
