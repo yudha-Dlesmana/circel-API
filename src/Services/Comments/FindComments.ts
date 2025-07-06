@@ -14,11 +14,7 @@ export async function findComments(tweetId: number, cursor?: number) {
         select: {
           name: true,
           username: true,
-          profile: {
-            select: {
-              image: true,
-            },
-          },
+          image: true,
         },
       },
       _count: {
@@ -55,11 +51,7 @@ export async function findReplies(parentId: number, cursor?: number) {
         select: {
           name: true,
           username: true,
-          profile: {
-            select: {
-              image: true,
-            },
-          },
+          image: true,
         },
       },
       _count: {

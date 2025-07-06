@@ -4,7 +4,7 @@ import { findUserSuggestions } from "../Services/Users/FindUserSuggestions";
 import { findFollowers } from "../Services/Follows/FindFollowers";
 import { findFollowing } from "../Services/Follows/FindFollowings";
 import { searchUsers } from "../Services/Users/SearchUsers";
-import { getUsername } from "../Services/Users/GetUserProperties";
+
 import { createResponse, Status } from "../Utils/Response";
 
 export async function getUserProfile(
@@ -15,16 +15,15 @@ export async function getUserProfile(
   const userId = (req as any).user.id;
   try {
     const userProfile = await findUserProfile(userId);
-
-    const profile = userProfile.profile;
     const follows = userProfile._count;
 
     const payload = {
       username: userProfile.username,
       name: userProfile.name,
-      email: userProfile.email,
-      ...profile,
-      ...follows,
+      bio: userProfile.bio,
+      image: userProfile.image,
+      background: userProfile.background,
+      ...userProfile._count,
     };
     res.statusCode = 200;
     req.statusMessage = "OK";
@@ -43,9 +42,9 @@ export async function getUser(req: Request, res: Response, next: NextFunction) {
     const payload = {
       username: user.username,
       name: user.name,
-      bio: user.profile?.bio,
-      image: user.profile?.image,
-      background: user.profile?.background,
+      bio: user.bio,
+      image: user.image,
+      background: user.background,
       follower: user._count.follower,
       following: user._count.following,
     };
@@ -71,8 +70,8 @@ export async function getSearchUser(
     const payload = user.map((user) => ({
       username: user.username,
       name: user.name,
-      image: user.profile?.image,
-      bio: user.profile?.bio,
+      image: user.image,
+      bio: user.bio,
     }));
     res.statusCode = 200;
     res.statusMessage = "OK";
@@ -99,9 +98,8 @@ export async function getSuggestionUser(
     const suggestion = await findUserSuggestions(userId);
     const payload = suggestion.map((item) => ({
       username: item.username,
-      email: item.email,
       name: item.name,
-      image: item.profile?.image,
+      image: item.image,
     }));
     res.statusCode = 200;
     res.statusMessage = "OK";
@@ -124,8 +122,8 @@ export async function getFollower(
       follower: follower.map((item) => ({
         name: item.name,
         username: item.username,
-        bio: item.profile?.bio,
-        image: item.profile?.image,
+        bio: item.bio,
+        image: item.image,
       })),
       cursor:
         follower.length == 10
@@ -153,8 +151,8 @@ export async function getFollowing(
       following: following.map((item) => ({
         name: item.name,
         username: item.username,
-        image: item.profile?.image,
-        bio: item.profile?.bio,
+        image: item.image,
+        bio: item.bio,
       })),
       cursor:
         following.length == 10

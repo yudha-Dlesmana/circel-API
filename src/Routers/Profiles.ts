@@ -1,16 +1,9 @@
 import { Router } from "express";
-import { createProfile, patchProfile } from "../Controllers/Profiles";
+import { patchProfile } from "../Controllers/Profiles";
 import { authentication } from "../Middlewares/Auth";
 import { uploadField } from "../Middlewares/UploadField";
 
 const router = Router();
-
-router.post(
-  "/profile",
-  authentication,
-  uploadField(["profile", "background"]),
-  createProfile
-);
 
 router.patch(
   "/profile",

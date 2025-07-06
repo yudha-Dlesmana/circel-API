@@ -49,7 +49,7 @@ export async function getTweet(
       createAt: tweet.createAt,
       username: tweet.user.username,
       name: tweet.user.name,
-      userImage: tweet.user.profile?.image,
+      userImage: tweet.user.image,
       comments: tweet._count.comment,
     };
     res.statusCode = 200;
@@ -89,7 +89,7 @@ export async function getAlltweets(
         createAt: tweet.createAt,
         username: tweet.user.username,
         name: tweet.user.name,
-        userImage: tweet.user.profile?.image,
+        userImage: tweet.user.image,
         comments: tweet._count.comment,
       })),
       cursor: tweets.length == 13 ? tweets[tweets.length - 1].id : undefined,
@@ -118,7 +118,7 @@ export async function getUserTweets(
         createAt: tweet.createAt,
         username: tweet.user.username,
         name: tweet.user.name,
-        userImage: tweet.user.profile?.image,
+        userImage: tweet.user.image,
         likes: tweet._count.like,
         comments: tweet._count.comment,
       })),

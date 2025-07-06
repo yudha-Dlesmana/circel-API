@@ -18,11 +18,7 @@ export async function findTweet(id: number) {
         select: {
           name: true,
           username: true,
-          profile: {
-            select: {
-              image: true,
-            },
-          },
+          image: true,
         },
       },
     },
@@ -50,11 +46,7 @@ export async function findAllTweets(
         select: {
           name: true,
           username: true,
-          profile: {
-            select: {
-              image: true,
-            },
-          },
+          image: true,
         },
       },
       createAt: true,
@@ -97,11 +89,7 @@ export async function findUserTweets(userId: string, cursor?: number) {
         select: {
           name: true,
           username: true,
-          profile: {
-            select: {
-              image: true,
-            },
-          },
+          image: true,
         },
       },
     },

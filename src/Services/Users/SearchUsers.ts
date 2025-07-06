@@ -11,14 +11,11 @@ export async function searchUsers(userId: string, name: string | undefined) {
         },
       },
       select: {
+        id: true,
         username: true,
         name: true,
-        profile: {
-          select: {
-            image: true,
-            bio: true,
-          },
-        },
+        image: true,
+        bio: true,
       },
     });
 

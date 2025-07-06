@@ -15,30 +15,23 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  username String   @unique
-  email    String   @unique
-  password String
-  name     String
-  profile  Profile?
-  role     Roles    @default(USER)
-  createAt DateTime @default(now())
+  id         String    @id @default(uuid())
+  username   String    @unique
+  email      String    @unique
+  password   String
+  name       String
+  bio        String?
+  image      String?
+  background String?
+  role       Roles     @default(USER)
+  createAt   DateTime  @default(now())
+  updateAt   DateTime?
 
   tweets    Tweet[]
   comment   Comment[]
   following Follows[] @relation("Following")
   follower  Follows[] @relation("Follower")
   like      Like[]
-}
-
-model Profile {
-  userId     String    @id
-  bio        String?
-  image      String?
-  background String?
-  createAt   DateTime  @default(now())
-  updateAt   DateTime?
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Follows {

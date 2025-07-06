@@ -11,14 +11,11 @@ export async function findUserSuggestions(userId: string) {
       },
     },
     select: {
+      id: true,
       email: true,
       username: true,
       name: true,
-      profile: {
-        select: {
-          image: true,
-        },
-      },
+      image: true,
     },
     take: 3,
   });

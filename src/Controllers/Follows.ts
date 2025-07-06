@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { createFollow } from "../Services/Follows/CreateFollow";
 import { deleteFollow } from "../Services/Follows/DeleteFollow";
 import { findFollows } from "../Services/Follows/CheckFollow";
-import { getUsername } from "../Services/Users/GetUserProperties";
 import { createResponse, Status } from "../Utils/Response";
 
 export async function follow(req: Request, res: Response, next: NextFunction) {
@@ -48,11 +47,9 @@ export async function checkFollow(
   next: NextFunction
 ) {
   const userId = (req as any).user.id;
-  const { targetUsername } = req.params;
+  const { targetId } = req.params;
   try {
-    const { username } = await getUsername(userId);
-
-    const isFollowed = await findFollows(username, targetUsername);
+    const isFollowed = await findFollows(userId, targetId);
     res.statusCode = 200;
     res.statusMessage = "OK";
     res.json(createResponse(Status.success, 200, "check follow", isFollowed));
