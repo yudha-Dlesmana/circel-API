@@ -33,8 +33,8 @@ export async function register(
         201,
         "Your account has been created successfully.",
         {
-          username: user.username,
           name: user.name,
+          username: user.username,
           token,
         }
       )
