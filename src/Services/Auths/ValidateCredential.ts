@@ -7,10 +7,10 @@ export async function validateCredential(login: Login) {
   const user = await prismaClient.user.findUnique({
     where: { email: login.email },
   });
-  if (!user) throw new Error("InvalidCredentialsError");
+  if (!user) throw new Error("Incorrect email or password.");
 
   const isMatch = await compare(login.password, user.password);
-  if (!isMatch) throw new Error("InvalidCredentialsError");
+  if (!isMatch) throw new Error("Incorrect email or password.");
 
   const payload: UserPayload = { id: user.id, role: user.role };
 
