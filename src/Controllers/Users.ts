@@ -68,6 +68,7 @@ export async function getSearchUser(
   try {
     const user = await searchUsers(userId, nameQuery);
     const payload = user.map((user) => ({
+      id: user.id,
       username: user.username,
       name: user.name,
       image: user.image,
@@ -120,7 +121,8 @@ export async function getFollower(
   try {
     const follower = await findFollowers(userId, cursor as string);
     const payload = {
-      follower: follower.map((item) => ({
+      followers: follower.map((item) => ({
+        id: item.id,
         name: item.name,
         username: item.username,
         bio: item.bio,
