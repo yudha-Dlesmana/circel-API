@@ -10,7 +10,7 @@ const router = Router();
 
 router.post("/register", register);
 router.post("/login", login);
-router.post("/forgot-password", forgotPassword);
-router.patch("/reset-password/:token", resetPassword);
+router.post("/forgot", forgotPassword);
+router.patch("/reset/:token", resetPassword);
 
 export default router;
