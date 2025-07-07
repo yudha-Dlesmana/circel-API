@@ -15,14 +15,14 @@ export async function patchProfile(
   const profilePath = (req as any).profilePath;
   const backgroundUrl = (req as any).backgroundUrl;
   const backgroundPath = (req as any).backgroundPath;
-  const deleteImage = input.deleteImage === "true";
+  const deleteProfile = input.deleteProfile === "true";
   const deleteBackground = input.deleteBackground === "true";
 
   const payload = {
     ...input,
-    image: profileUrl,
+    profile: profileUrl,
     background: backgroundUrl,
-    deleteImage,
+    deleteProfile,
     deleteBackground,
   };
   try {

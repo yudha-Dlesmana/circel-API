@@ -23,8 +23,8 @@ export const editProfileSchema = z.object({
     .max(50, "bio must be at most 50 characters")
     .nullable()
     .optional(),
-  image: z.string().url("Invalid image URL").nullable().optional(),
-  deleteImage: z.boolean().optional(),
+  profile: z.string().url("Invalid image URL").nullable().optional(),
+  deleteProfile: z.boolean().optional(),
   background: z.string().url("Invalid image URL").nullable().optional(),
   deleteBackground: z.boolean().optional(),
 });

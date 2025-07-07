@@ -8,7 +8,7 @@ export async function updateUserProfile(userId: string, payload: EditProfile) {
       username: payload.username,
       name: payload.name,
       bio: payload.bio,
-      image: payload.deleteImage ? null : payload.image,
+      image: payload.deleteProfile ? null : payload.profile,
       background: payload.deleteBackground ? null : payload.background,
       updateAt: new Date(),
     },
