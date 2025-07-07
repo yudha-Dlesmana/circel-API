@@ -16,6 +16,6 @@ router.get("/user/:username", authentication, getUser);
 router.get("/search", authentication, getSearchUser);
 router.get("/suggestion", authentication, getSuggestionUser);
 router.get("/followers", authentication, getFollower);
-router.get("/following", authentication, getFollowing);
+router.get("/followings", authentication, getFollowing);
 
 export default router;

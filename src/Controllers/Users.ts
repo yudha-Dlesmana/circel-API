@@ -119,18 +119,18 @@ export async function getFollower(
   const userId = (req as any).user.id;
   const { cursor } = req.query;
   try {
-    const follower = await findFollowers(userId, cursor as string);
+    const followers = await findFollowers(userId, cursor as string);
     const payload = {
-      followers: follower.map((item) => ({
-        id: item.id,
-        name: item.name,
-        username: item.username,
-        bio: item.bio,
-        image: item.image,
+      followers: followers.map((follower) => ({
+        id: follower.id,
+        name: follower.name,
+        username: follower.username,
+        bio: follower.bio,
+        image: follower.image,
       })),
       cursor:
-        follower.length == 10
-          ? follower[follower.length - 1].username
+        followers.length == 10
+          ? followers[followers.length - 1].username
           : undefined,
     };
     (res.statusCode = 200), (res.statusMessage = "OK");
@@ -148,19 +148,19 @@ export async function getFollowing(
   const userId = (req as any).user.id;
   const { cursor } = req.query;
   try {
-    const following = await findFollowing(userId, cursor as string);
+    const followings = await findFollowing(userId, cursor as string);
 
     const payload = {
-      following: following.map((item) => ({
-        id: item.id,
-        name: item.name,
-        username: item.username,
-        image: item.image,
-        bio: item.bio,
+      followings: followings.map((following) => ({
+        id: following.id,
+        name: following.name,
+        username: following.username,
+        image: following.image,
+        bio: following.bio,
       })),
       cursor:
-        following.length == 10
-          ? following[following.length - 1].username
+        followings.length == 10
+          ? followings[followings.length - 1].username
           : undefined,
     };
     res.statusCode = 200;
