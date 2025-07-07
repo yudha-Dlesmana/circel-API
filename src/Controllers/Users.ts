@@ -152,6 +152,7 @@ export async function getFollowing(
 
     const payload = {
       following: following.map((item) => ({
+        id: item.id,
         name: item.name,
         username: item.username,
         image: item.image,
