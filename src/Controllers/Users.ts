@@ -97,6 +97,7 @@ export async function getSuggestionUser(
   try {
     const suggestion = await findUserSuggestions(userId);
     const payload = suggestion.map((item) => ({
+      id: item.id,
       username: item.username,
       name: item.name,
       image: item.image,
