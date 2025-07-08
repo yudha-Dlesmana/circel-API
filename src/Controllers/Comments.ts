@@ -101,7 +101,6 @@ export async function getRepliesComment(
         userImage: reply.user.image,
         text: reply.text,
         createAt: reply.createAt,
-        likes: reply._count.like,
       })),
       cursor: replies.length == 3 ? replies[replies.length - 1].id : undefined,
     };
