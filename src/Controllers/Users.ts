@@ -18,6 +18,7 @@ export async function getUserProfile(
     const follows = userProfile._count;
 
     const payload = {
+      id: userId,
       username: userProfile.username,
       name: userProfile.name,
       bio: userProfile.bio,
@@ -40,6 +41,7 @@ export async function getUser(req: Request, res: Response, next: NextFunction) {
   try {
     const user = await findUser(username);
     const payload = {
+      id: user.id,
       username: user.username,
       name: user.name,
       bio: user.bio,

@@ -27,7 +27,7 @@ export async function likeTweet(
     const like = await createTweetLike(userId, Number(tweetId));
     res.statusCode = 201;
     res.statusMessage = "CREATED";
-    res.json(createResponse(Status.success, 201, "Like Post", like));
+    res.json(createResponse(Status.success, 201, "Like Post", {}));
   } catch (error) {
     next(error);
   }
