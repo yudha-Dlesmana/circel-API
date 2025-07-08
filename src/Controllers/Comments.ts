@@ -71,7 +71,6 @@ export async function getComment(
         text: comment.text,
         image: comment.image,
         createAt: comment.createAt,
-        likes: comment._count.like,
         replies: comment._count.replies,
       })),
       cursor:

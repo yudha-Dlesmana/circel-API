@@ -15,9 +15,9 @@ router.post(
   uploadField(["comment"]),
   commentTweet
 );
-router.post("/replies/:tweetId/:parentId", authentication, commentTweet);
+router.post("/reply/:tweetId/:parentId", authentication, commentTweet);
 
-router.get("/comment/:tweetId", authentication, getComment);
+router.get("/comments/:tweetId", authentication, getComment);
 router.get("/replies/:parentId", authentication, getRepliesComment);
 
 export default router;
