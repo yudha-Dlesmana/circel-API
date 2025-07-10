@@ -19,6 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
 
+app.use("/", (req, res) => {
+  res.send("Backend Ready");
+});
 app.use("/api/v1", authRouter);
 app.use("/api/v1", profileRouter);
 app.use("/api/v1", userRouter);
