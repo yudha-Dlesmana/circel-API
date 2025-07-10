@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
 
-app.use("/api/v1", (req, res) => {
+app.use("/", (req, res) => {
   res.send("Backend Ready");
 });
 app.use("/api/v1", authRouter);
