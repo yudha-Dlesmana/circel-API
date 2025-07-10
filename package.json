@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn src/App.ts"
+    "dev": "ts-node-dev --respawn src/App.ts",
+    "postinstall": "prisma generate "
   },
   "prisma": {
     "seed": "ts-node src/connections/seed.ts"
