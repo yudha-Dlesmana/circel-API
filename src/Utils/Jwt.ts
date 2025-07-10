@@ -5,7 +5,7 @@ export interface UserPayload {
   role: string;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
+const JWT_SECRET = process.env.SUPABASE_SUPABASE_JWT_SECRET as string;
 
 export function signToken(payload: UserPayload) {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" });
