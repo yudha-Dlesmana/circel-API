@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("SUPABASE_POSTGRES_PRISMA_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  username   String    @unique
+  email      String    @unique
+  password   String
+  name       String
+  bio        String?
+  image      String?
+  background String?
+  role       Roles     @default(USER)
+  createAt   DateTime  @default(now())
+  updateAt   DateTime?
+
+  tweets    Tweet[]
+  comment   Comment[]
+  following Follows[] @relation("Following")
+  follower  Follows[] @relation("Follower")
+  like      Like[]
+}
+
+model Follows {
+  id          Int      @id @default(autoincrement())
+  followingId String
+  followerId  String
+  createAt    DateTime @default(now())
+  following   User     @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+  follower    User     @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+}
+
+model Tweet {
+  id       Int       @id @default(autoincrement())
+  userId   String
+  text     String
+  image    String?
+  createAt DateTime  @default(now())
+  comment  Comment[]
+  like     Like[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Comment {
+  id       Int      @id @default(autoincrement())
+  tweetId  Int
+  userId   String
+  text     String
+  image    String?
+  parentId Int?
+  createAt DateTime @default(now())
+  like     Like[]
+
+  tweet Tweet @relation(fields: [tweetId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  commentReplies Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies        Comment[] @relation("CommentReplies")
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+
+  tweetId   Int?
+  commentId Int?
+  userId    String
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tweet   Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([tweetId, userId])
+  @@unique([commentId, userId])
+}
+
+enum Roles {
+  USER
+  ADMIN
+}
